@@ -70,6 +70,7 @@ export default function MusicPage() {
                   scrolling="no"
                   frameBorder="no"
                   allow="autoplay"
+                  loading="lazy"
                   src={track.embedUrl}
                   title={track.title}
                 />
@@ -90,6 +91,7 @@ export default function MusicPage() {
                 scrolling="no"
                 frameBorder="no"
                 allow="autoplay"
+                loading="lazy"
                 src={playlist.embedUrl}
                 title={playlist.title}
               />

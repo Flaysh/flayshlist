@@ -271,6 +271,7 @@ export default function HomePage() {
                   scrolling="no"
                   frameBorder="no"
                   allow="autoplay"
+                  loading="lazy"
                   src={track.embedUrl}
                   title={track.title}
                 />

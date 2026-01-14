@@ -38,7 +38,6 @@ const techStack = [
     color: 'from-purple-500 to-pink-500',
     items: [
       { name: 'TanStack Query', desc: 'Server state, caching, background refetch' },
-      { name: 'Zustand', desc: 'Global audio player state' },
       { name: 'nuqs', desc: 'URL search params sync' },
     ],
   },
@@ -77,7 +76,7 @@ const features = [
 
 const architectureLayers = [
   { name: 'UI Layer', tech: 'React + Tailwind', desc: 'Server & Client Components' },
-  { name: 'State Layer', tech: 'TanStack Query + Zustand', desc: 'Caching & global state' },
+  { name: 'State Layer', tech: 'TanStack Query + nuqs', desc: 'Caching & URL state sync' },
   { name: 'BFF Layer', tech: 'Next.js Route Handlers', desc: 'API endpoints with Zod validation' },
   { name: 'Data Layer', tech: 'Prisma + SQLite', desc: 'Type-safe ORM' },
 ];
@@ -213,7 +212,7 @@ export default function ToolsPage() {
 │   │
 │   ├── components/
 │   │   ├── ui/                 # Design system components
-│   │   ├── layout/             # Header, Footer, AudioPlayer
+│   │   ├── layout/             # Header, Footer
 │   │   └── catalog/            # Asset cards, filters
 │   │
 │   ├── lib/
@@ -221,7 +220,6 @@ export default function ToolsPage() {
 │   │   ├── api.ts              # API client functions
 │   │   └── db.ts               # Prisma client
 │   │
-│   ├── stores/                 # Zustand stores
 │   ├── hooks/                  # Custom React hooks
 │   └── data/                   # Content & CV data
 │

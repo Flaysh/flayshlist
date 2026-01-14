@@ -34,6 +34,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       disabled,
+      type = 'button',
       children,
       ...props
     },
@@ -50,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           (disabled || isLoading) && 'opacity-50 cursor-not-allowed',
           className
         )}
+        type={type}
         disabled={disabled || isLoading}
         {...props}
       >

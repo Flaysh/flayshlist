@@ -150,4 +150,5 @@ body {
 .instagram-embed-container {
   @apply rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800;
   @apply hover:border-purple-500/30 transition-colors;
+  @apply min-h-[520px];
 }

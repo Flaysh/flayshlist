@@ -244,6 +244,7 @@ export const AiChat = () => {
             onClick={() => handleSend()}
             disabled={!input.trim() || isTyping}
             className="rounded-xl"
+            aria-label="Send message"
           >
             {isTyping ? (
               <Loader2 className="h-4 w-4 animate-spin" />

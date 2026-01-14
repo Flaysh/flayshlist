@@ -87,11 +87,11 @@ export async function GET(request: NextRequest) {
     }
 
     if (query) {
-      where.OR = [
-        { title: { contains: query, mode: 'insensitive' } },
-        { description: { contains: query, mode: 'insensitive' } },
-        { tags: { contains: query, mode: 'insensitive' } },
-        { artist: { contains: query, mode: 'insensitive' } },
+        where.OR = [
+        { title: { contains: query } },
+        { description: { contains: query  } },
+        { tags: { contains: query } },
+        { artist: { contains: query } },
       ];
     }
 
