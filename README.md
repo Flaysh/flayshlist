@@ -1,3 +1,4 @@
+<img width="819" height="819" alt="icon" src="https://github.com/user-attachments/assets/e6559ede-9999-4415-ae49-8ff8c3b06283" />
 # FlayshList
 
 FlayshList is a purpose-built portfolio that mirrors the creator journey Artlist serves. It combines my senior frontend engineering craft with my lived experience as an audiovisual artist and music producer (FLAYSH). The result is a polished, production-grade Next.js app that showcases how I design, build, and ship for creators.
