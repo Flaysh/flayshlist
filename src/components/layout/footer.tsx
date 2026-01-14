@@ -33,7 +33,7 @@ export const Footer = () => {
             </p>
             <div className="mt-4 flex items-center gap-2">
               <Image
-                src="/FLAYSH_logo.svg"
+                src="/FLAYSH_logo.png"
                 alt="FLAYSH"
                 width={24}
                 height={16}
@@ -141,7 +141,7 @@ export const Footer = () => {
         </div>
         <div className="mt-12 border-t border-neutral-800 pt-8">
           <Image
-            src="/FLAYSH_logo.svg"
+            src="/FLAYSH_logo.png"
             alt="FLAYSH"
             width={120}
             height={48}

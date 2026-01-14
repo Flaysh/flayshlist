@@ -30,7 +30,7 @@ export default function VisualsPage() {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <div className="text-center mb-10">
         <Image
-          src="/FLAYSH_logo.svg"
+          src="/FLAYSH_logo.png"
           alt="FLAYSH"
           width={120}
           height={48}
@@ -118,7 +118,7 @@ export default function VisualsPage() {
         <Card className="max-w-lg mx-auto bg-neutral-900/50 border-neutral-800">
           <CardContent className="p-6">
             <Image
-              src="/FLAYSH_logo.svg"
+              src="/FLAYSH_logo.png"
               alt="FLAYSH"
               width={80}
               height={32}

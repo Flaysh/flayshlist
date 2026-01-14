@@ -29,7 +29,6 @@ const techStack = [
       { name: 'Next.js 16', desc: 'App Router, Server Components, Streaming' },
       { name: 'TypeScript', desc: 'Strict mode, full type safety' },
       { name: 'Tailwind CSS', desc: 'Utility-first styling' },
-      { name: 'Custom Design System', desc: 'Tokens, components, dark-first' },
     ],
   },
   {

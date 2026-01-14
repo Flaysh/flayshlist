@@ -13,7 +13,7 @@ export default function MusicPage() {
     <div className="mx-auto max-w-7xl px-4 py-8">
       <div className="text-center mb-12">
         <Image
-          src="/FLAYSH_logo.svg"
+          src="/FLAYSH_logo.png"
           alt="FLAYSH"
           width={120}
           height={48}
@@ -107,7 +107,7 @@ export default function MusicPage() {
         <Card className="max-w-xl mx-auto bg-gradient-to-r from-purple-900/30 to-pink-900/30 border-purple-800/30">
           <CardContent className="p-8">
             <Image
-              src="/FLAYSH_logo.svg"
+              src="/FLAYSH_logo.png"
               alt="FLAYSH"
               width={80}
               height={32}
