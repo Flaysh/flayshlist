@@ -151,6 +151,73 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="py-20 bg-gradient-to-r from-purple-950/20 to-pink-950/20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-2 text-purple-400 mb-4">
+                <Monitor className="h-4 w-4" />
+                Audiovisual Artist
+              </div>
+              <h2 className="text-3xl font-bold text-neutral-100">{audiovisualArtist.tagline}</h2>
+              <p className="mt-4 text-neutral-400">
+                {audiovisualArtist.visualsDescription}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {audiovisualArtist.skills.slice(0, 5).map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full bg-purple-500/10 px-3 py-1 text-sm text-purple-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              <Link href="/reels" className="mt-6 inline-flex items-center text-purple-400 hover:text-purple-300">
+                View Visual Work
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
+                <Image
+                  src="/pm_img.webp"
+                  alt="Portrait performance still"
+                  fill
+                  sizes="(min-width: 1024px) 30vw, (min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
+              </div>
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
+                <video
+                  className="h-full w-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src="/pm_studio.webm" type="video/webm" />
+                </video>
+              </div>
+              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
+                <video
+                  className="h-full w-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src="/pm_vid.webm" type="video/webm" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 bg-gradient-to-r from-primary-950/30 to-accent-950/30">
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
@@ -181,56 +248,6 @@ export default function HomePage() {
                 className="rounded-xl"
                 title="Spotify Player"
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-r from-purple-950/20 to-pink-950/20">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-2 text-purple-400 mb-4">
-                <Monitor className="h-4 w-4" />
-                Audiovisual Artist
-              </div>
-              <h2 className="text-3xl font-bold text-neutral-100">{audiovisualArtist.tagline}</h2>
-              <p className="mt-4 text-neutral-400">
-                {audiovisualArtist.visualsDescription}
-              </p>
-              <div className="mt-6 flex flex-wrap gap-2">
-                {audiovisualArtist.skills.slice(0, 5).map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full bg-purple-500/10 px-3 py-1 text-sm text-purple-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              <Link href="/reels" className="mt-6 inline-flex items-center text-purple-400 hover:text-purple-300">
-                View Visual Work
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
-                <Monitor className="h-16 w-16 text-purple-400/50" />
-              </div>
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-pink-900/30 to-orange-900/30 flex items-center justify-center">
-                <Sparkles className="h-16 w-16 text-pink-400/50" />
-              </div>
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-orange-900/30 to-yellow-900/30 flex items-center justify-center col-span-2">
-                <a
-                  href={socialLinks.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-2 text-neutral-400 hover:text-pink-400 transition-colors"
-                >
-                  <Instagram className="h-12 w-12" />
-                  <span className="text-sm font-medium">@{socialLinks.instagram.username}</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>
