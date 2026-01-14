@@ -2,19 +2,9 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import {
-  Play,
-  Pause,
-  SkipBack,
-  SkipForward,
-  Volume2,
-  VolumeX,
-  X,
-  List,
-} from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, X, List } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { usePlayerStore } from '@/stores/player-store';
-import { Slider } from '@/components/ui';
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds / 60);
@@ -111,7 +101,6 @@ export const AudioPlayer = () => {
 
       <div className="mx-auto max-w-7xl px-4 py-3">
         <div className="flex items-center gap-4">
-          {/* Track Info */}
           <div className="flex items-center gap-3 min-w-0 flex-1 sm:flex-initial sm:w-64">
             <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-md bg-neutral-800">
               {currentTrack.coverImage && (
@@ -134,7 +123,6 @@ export const AudioPlayer = () => {
             </div>
           </div>
 
-          {/* Controls */}
           <div className="flex flex-col items-center gap-1 flex-1 max-w-xl">
             <div className="flex items-center gap-2">
               <button
@@ -173,7 +161,6 @@ export const AudioPlayer = () => {
               </button>
             </div>
 
-            {/* Progress Bar */}
             <div className="hidden sm:flex w-full items-center gap-2">
               <span className="text-xs text-neutral-500 w-10 text-right">
                 {formatTime(currentTime)}
@@ -193,7 +180,6 @@ export const AudioPlayer = () => {
             </div>
           </div>
 
-          {/* Volume & Queue */}
           <div className="hidden sm:flex items-center gap-3 w-48 justify-end">
             <div className="flex items-center gap-2">
               <button

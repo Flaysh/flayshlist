@@ -1,4 +1,5 @@
-import { ExternalLink, Music, Play } from 'lucide-react';
+import Image from 'next/image';
+import { ExternalLink, Music } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { soundcloudContent, spotifyEmbed, socialLinks } from '@/data/content';
 
@@ -10,12 +11,15 @@ export const metadata = {
 export default function MusicPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      {/* Header */}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/20 px-4 py-2 mb-4">
-          <Music className="h-5 w-5 text-purple-400" />
-          <span className="text-purple-400 font-medium">FLAYSH</span>
-        </div>
+        <Image
+          src="/FLAYSH_logo.svg"
+          alt="FLAYSH"
+          width={120}
+          height={48}
+          className="mx-auto h-12 w-auto mb-6"
+          priority
+        />
         <h1 className="text-4xl font-bold text-neutral-100">Music</h1>
         <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto">
           Original productions spanning desert bass, electronic, and experimental genres.
@@ -37,7 +41,6 @@ export default function MusicPage() {
         </div>
       </div>
 
-      {/* Spotify Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold text-neutral-100 mb-6">On Spotify</h2>
         <Card>
@@ -55,7 +58,6 @@ export default function MusicPage() {
         </Card>
       </section>
 
-      {/* SoundCloud Tracks */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold text-neutral-100 mb-6">Tracks</h2>
         <div className="space-y-4">
@@ -77,7 +79,6 @@ export default function MusicPage() {
         </div>
       </section>
 
-      {/* SoundCloud Playlists */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold text-neutral-100 mb-6">Playlists</h2>
         {soundcloudContent.playlists.map((playlist) => (
@@ -100,11 +101,16 @@ export default function MusicPage() {
         ))}
       </section>
 
-      {/* CTA */}
       <section className="text-center">
         <Card className="max-w-xl mx-auto bg-gradient-to-r from-purple-900/30 to-pink-900/30 border-purple-800/30">
           <CardContent className="p-8">
-            <Play className="h-12 w-12 text-purple-400 mx-auto mb-4" />
+            <Image
+              src="/FLAYSH_logo.svg"
+              alt="FLAYSH"
+              width={80}
+              height={32}
+              className="mx-auto h-8 w-auto mb-4 opacity-80"
+            />
             <h2 className="text-xl font-bold text-neutral-100">More on SoundCloud</h2>
             <p className="mt-2 text-neutral-400">
               Follow for new releases, DJ sets, and exclusive content.

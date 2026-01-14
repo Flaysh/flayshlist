@@ -148,7 +148,7 @@ export default function ToolsPage() {
                         <CheckCircle className="h-4 w-4 text-green-400 mt-0.5 shrink-0" />
                         <div>
                           <span className="text-neutral-100 text-sm font-medium">{item.name}</span>
-                          <span className="text-neutral-500 text-sm"> — {item.desc}</span>
+                          <span className="text-neutral-500 text-sm"> - {item.desc}</span>
                         </div>
                       </div>
                     ))}

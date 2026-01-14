@@ -3,23 +3,14 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  Menu,
-  X,
-  Music,
-  Instagram,
-  Sparkles,
-  Wrench,
-  Bot,
-  Github,
-  Linkedin,
-} from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { socialLinks } from '@/data/content';
 
 const mainLinks = [
   { href: '/music', label: 'Music', icon: Music },
-  { href: '/reels', label: 'Reels', icon: Instagram },
+  { href: '/reels', label: 'Visuals', icon: Monitor },
   { href: '/about', label: 'About Me', icon: Sparkles },
   { href: '/chat', label: 'Ask AI', icon: Bot },
   { href: '/tools', label: 'How I Built This', icon: Wrench },
@@ -35,7 +26,6 @@ export const Header = () => {
     <header className="sticky top-0 z-[100] border-b border-neutral-800 bg-neutral-950/95 backdrop-blur-sm">
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <Link
             href="/"
             className={cn(
@@ -43,13 +33,16 @@ export const Header = () => {
               focusRing
             )}
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-accent-500">
-              <span className="text-sm font-bold text-white">FL</span>
-            </div>
+            <Image
+              src="/icon.png"
+              alt="FlayshList"
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-lg"
+            />
             <span className="hidden sm:inline">FlayshList</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
             {mainLinks.map((link) => (
               <Link
@@ -69,9 +62,7 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* Social Links + Mobile Menu */}
           <div className="flex items-center gap-2">
-            {/* GitHub - Prominent */}
             <a
               href={socialLinks.github.url}
               target="_blank"
@@ -86,7 +77,6 @@ export const Header = () => {
               GitHub
             </a>
 
-            {/* LinkedIn */}
             <a
               href={socialLinks.linkedin.url}
               target="_blank"
@@ -100,7 +90,6 @@ export const Header = () => {
               <Linkedin className="h-5 w-5" />
             </a>
 
-            {/* Mobile Menu Toggle */}
             <button
               className={cn(
                 'rounded-lg p-2 text-neutral-400 hover:text-neutral-100 lg:hidden',
@@ -115,7 +104,6 @@ export const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMobileMenuOpen && (
           <nav className="border-t border-neutral-800 py-4 lg:hidden" aria-label="Mobile navigation">
             <div className="space-y-1">

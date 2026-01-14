@@ -93,7 +93,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     const { queue, currentTrack, currentTime } = get();
     if (!currentTrack) return;
 
-    // If more than 3 seconds in, restart current track
     if (currentTime > 3) {
       set({ currentTime: 0 });
       return;

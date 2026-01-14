@@ -1,7 +1,3 @@
-// Real content URLs for FlayshList - Itay Flaysher's Portfolio
-// Showcasing music production and audiovisual art
-
-// Social & Professional Links
 export const socialLinks = {
   github: {
     url: 'https://github.com/Flaysh',
@@ -29,14 +25,12 @@ export const socialLinks = {
   },
 };
 
-// Contact Info
 export const contactInfo = {
   phone: '(972) 597-9140',
   email: 'itayf3x@gmail.com',
   location: 'Tel Aviv, Israel',
 };
 
-// Spotify Artist Embed
 export const spotifyEmbed = {
   artistId: '473GFkkbROCSw6ey6KioU7',
   artistUrl: 'https://open.spotify.com/artist/473GFkkbROCSw6ey6KioU7',
@@ -44,7 +38,6 @@ export const spotifyEmbed = {
   title: 'FLAYSH on Spotify',
 };
 
-// SoundCloud Tracks & Playlists
 export const soundcloudContent = {
   profileUrl: 'https://soundcloud.com/flay5h',
   tracks: [
@@ -84,25 +77,54 @@ export const soundcloudContent = {
   ],
 };
 
-// Instagram Content
-export const instagramContent = {
-  profileUrl: 'https://www.instagram.com/flaysh_/',
-  username: 'flaysh_',
-  posts: [
-    { id: 'DPjW6i6iIOW', url: 'https://www.instagram.com/p/DPjW6i6iIOW/', type: 'post' },
-    { id: 'DSSl6GaCmV4', url: 'https://www.instagram.com/p/DSSl6GaCmV4/', type: 'post' },
-    { id: 'DOGqmoTiNSM', url: 'https://www.instagram.com/p/DOGqmoTiNSM/', type: 'post' },
+export const audiovisualArtist = {
+  name: 'FLAYSH',
+  tagline: 'VJ • Projection Mapping • Live Visuals',
+  bio: `FLAYSH is an audiovisual artist, VJ, DJ, and musician blending sound, visuals, and tech into emotionally intense, high-energy performances. His DJ sets revolve around drum and bass, infused with IDM, psychedelic bass, and leftfield textures-crafted for impact, movement, and deep connection.`,
+  visualsDescription: `Visually, FLAYSH explores the edge of perception through projection mapping, live VJing, and unconventional setups. Repurposing gear like CRTs and security cams, he creates surreal, tactile environments that blur the line between analog and digital.`,
+  approach: `With roots in audio, lighting, and video, FLAYSH approaches each show as a full-spectrum experience-treating technology not just as a tool, but as a living part of the performance.`,
+  skills: [
+    'Live VJing',
+    'Projection Mapping',
+    'TouchDesigner',
+    'Resolume',
+    'Audio-Reactive Visuals',
+    'CRT & Analog Video',
+    'Real-time Graphics',
+    'Stage Design',
   ],
-  reels: [
-    { id: 'DPtpZGUiLjc', url: 'https://www.instagram.com/reel/DPtpZGUiLjc/', type: 'reel' },
-    { id: 'DTFM86KiF5J', url: 'https://www.instagram.com/reel/DTFM86KiF5J/', type: 'reel' },
-    { id: 'DP1ZUMhiNgF', url: 'https://www.instagram.com/reel/DP1ZUMhiNgF/', type: 'reel' },
-    { id: 'DPIx12qDQxq', url: 'https://www.instagram.com/reel/DPIx12qDQxq/', type: 'reel' },
-    { id: 'DQHZJhLiicq', url: 'https://www.instagram.com/reel/DQHZJhLiicq/', type: 'reel' },
+  tools: [
+    'TouchDesigner',
+    'Resolume Arena',
+    'After Effects',
+    'Ableton Live',
+    'MIDI Controllers',
+    'DMX Lighting',
   ],
 };
 
-// Full CV / About Me Data
+export const visualContent = {
+  profileUrl: 'https://www.instagram.com/flaysh_/',
+  username: 'flaysh_',
+  items: [
+    { id: 'DPjW6i6iIOW', url: 'https://www.instagram.com/p/DPjW6i6iIOW/', type: 'post' },
+    { id: 'DSSl6GaCmV4', url: 'https://www.instagram.com/p/DSSl6GaCmV4/', type: 'post' },
+    { id: 'DPtpZGUiLjc', url: 'https://www.instagram.com/reel/DPtpZGUiLjc/', type: 'reel' },
+    { id: 'DOGqmoTiNSM', url: 'https://www.instagram.com/p/DOGqmoTiNSM/', type: 'post' },
+    { id: 'DP1ZUMhiNgF', url: 'https://www.instagram.com/reel/DP1ZUMhiNgF/', type: 'reel' },
+    { id: 'DQHZJhLiicq', url: 'https://www.instagram.com/reel/DQHZJhLiicq/', type: 'reel' },
+    { id: 'DPIx12qDQxq', url: 'https://www.instagram.com/reel/DPIx12qDQxq/', type: 'reel' },
+    { id: 'DTFM86KiF5J', url: 'https://www.instagram.com/reel/DTFM86KiF5J/', type: 'reel' },
+  ],
+};
+
+export const instagramContent = {
+  profileUrl: visualContent.profileUrl,
+  username: visualContent.username,
+  posts: visualContent.items.filter(item => item.type === 'post'),
+  reels: visualContent.items.filter(item => item.type === 'reel'),
+};
+
 export const cvData = {
   name: 'Itay Flaysher',
   artistName: 'FLAYSH',
@@ -205,13 +227,12 @@ export const cvData = {
   
   passions: [
     'Music Production',
-    'AudioVisual Art', 
+    'VJing & Live Visuals', 
+    'Projection Mapping',
     'Creative Technology',
-    'User Experience',
   ],
 };
 
-// Music catalog config (simplified - only music)
 export const assetTypes = {
   music: {
     label: 'Music',
@@ -221,7 +242,6 @@ export const assetTypes = {
   },
 } as const;
 
-// Filter options for music
 export const filterOptions = {
   genre: [
     { value: 'desert-bass', label: 'Desert Bass' },
@@ -242,7 +262,6 @@ export const filterOptions = {
   ],
 } as const;
 
-// AI Agent context - knowledge base for the chatbot
 export const aiAgentContext = `
 You are an AI assistant representing Itay Flaysher (FLAYSH), a Full Stack/Frontend Engineer based in Tel Aviv, Israel.
 
@@ -252,7 +271,7 @@ KEY FACTS:
 - Previously: Frontend Engineer at Apono, Frontend Engineer at Landa, Co-Founder at MoonWiz
 - Education: Bachelor's in Computer Science and Business from The Open University of Israel (2024)
 - Core stack: React, Next.js, TypeScript, NestJS, GraphQL
-- Also an AudioVisual Artist producing music as "FLAYSH"
+- Also an AudioVisual Artist, VJ, and musician performing as "FLAYSH"
 
 PROFESSIONAL HIGHLIGHTS:
 - At Apono: Owns 4 production client apps, maintains NestJS + GraphQL BFF, 99.999% uptime target
@@ -262,14 +281,28 @@ PROFESSIONAL HIGHLIGHTS:
 
 WHY ARTLIST:
 - Passionate about creative technology at the intersection of code and creativity
-- As a music producer, understands the creator perspective
+- As a music producer AND audiovisual artist, deeply understands the creator perspective
+- Creates content for artists - VJing, projection mapping, live visuals
 - Built FlayshList as a portfolio project demonstrating product understanding
 - Wants to help build tools that empower creators
 
-MUSIC & ART:
-- Artist name: FLAYSH
-- Genres: Desert Bass, Electronic, Ambient
+AUDIOVISUAL ARTISTRY:
+- VJ (Video Jockey): Creates live visuals for music events, synced to audio
+- Projection Mapping: Transforms physical spaces with projected visuals
+- Tools: TouchDesigner, Resolume Arena, After Effects, Ableton Live
+- Style: Blends analog (CRTs, security cams) with digital for surreal environments
+- Performs at drum & bass events with IDM, psychedelic bass, leftfield textures
+- Treats technology as a living part of the performance
+
+MUSIC:
+- Genres: Desert Bass, Drum & Bass, Electronic, IDM
 - Platforms: SoundCloud (flay5h), Spotify, Instagram (@flaysh_)
+
+THIS UNIQUE COMBINATION:
+- Engineering skills + artistic understanding = perfect fit for Artlist
+- Knows both the technical challenges AND the creative workflows
+- Can build features that actually solve real creator problems
+- Brings empathy for users because he IS one of them
 
 CONTACT:
 - Email: itayf3x@gmail.com

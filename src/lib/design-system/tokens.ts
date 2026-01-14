@@ -1,8 +1,4 @@
-// Design System Tokens for FlayshList
-// Dark-first, premium, creator-focused aesthetic
-
 export const colors = {
-  // Primary brand colors
   primary: {
     50: '#f0f7ff',
     100: '#e0efff',
@@ -16,7 +12,6 @@ export const colors = {
     900: '#0a3d6e',
     950: '#072749',
   },
-  // Accent for highlights and CTAs
   accent: {
     50: '#fff7ed',
     100: '#ffeed4',
@@ -30,7 +25,6 @@ export const colors = {
     900: '#7f300f',
     950: '#451605',
   },
-  // Neutrals (dark-first)
   neutral: {
     50: '#fafafa',
     100: '#f4f4f5',
@@ -44,7 +38,6 @@ export const colors = {
     900: '#18181b',
     950: '#09090b',
   },
-  // Semantic colors
   success: '#22c55e',
   warning: '#f59e0b',
   error: '#ef4444',

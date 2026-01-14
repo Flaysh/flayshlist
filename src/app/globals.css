@@ -140,3 +140,27 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Instagram embed dark mode styling */
+.instagram-media {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  width: 100% !important;
+}
+
+.instagram-media-rendered {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+/* Container for Instagram embeds */
+.instagram-embed-container {
+  @apply rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800;
+  @apply hover:border-purple-500/30 transition-colors;
+}

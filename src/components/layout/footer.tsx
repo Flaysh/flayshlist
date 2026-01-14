@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, Linkedin, Instagram, Music } from 'lucide-react';
 import { socialLinks } from '@/data/content';
 
@@ -16,20 +17,32 @@ export const Footer = () => {
     <footer className="border-t border-neutral-800 bg-neutral-950">
       <div className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 text-lg font-bold text-neutral-100">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary-500 to-accent-500">
-                <span className="text-sm font-bold text-white">FL</span>
-              </div>
+            <div className="flex items-center gap-3 text-lg font-bold text-neutral-100">
+              <Image
+                src="/icon.png"
+                alt="FlayshList"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-lg"
+              />
               FlayshList
             </div>
             <p className="mt-3 text-sm text-neutral-400 max-w-md">
-              A portfolio project by Itay Flaysher (FLAYSH), showcasing the intersection 
+              A portfolio project by Itay Flaysher, showcasing the intersection 
               of software engineering and audiovisual art. Built with passion for Artlist.
             </p>
+            <div className="mt-4 flex items-center gap-2">
+              <Image
+                src="/FLAYSH_logo.svg"
+                alt="FLAYSH"
+                width={24}
+                height={16}
+                className="h-4 w-auto opacity-60"
+              />
+              <span className="text-xs text-neutral-500">Artist: FLAYSH</span>
+            </div>
 
-            {/* Social Links */}
             <div className="mt-6 flex gap-3">
               <a
                 href={socialLinks.github.url}
@@ -71,7 +84,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-100">
               Explore
@@ -90,7 +102,6 @@ export const Footer = () => {
             </ul>
           </div>
 
-          {/* External */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-100">
               Listen

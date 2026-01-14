@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   Github,
   Linkedin,
@@ -14,9 +16,11 @@ import {
   MapPin,
   Calendar,
   Building,
+  Monitor,
+  Layers,
 } from 'lucide-react';
 import { Button, Card, CardContent, Badge } from '@/components/ui';
-import { cvData, socialLinks, contactInfo } from '@/data/content';
+import { cvData, socialLinks, contactInfo, audiovisualArtist } from '@/data/content';
 
 export const metadata = {
   title: 'About Me - FlayshList',
@@ -26,16 +30,24 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
-      {/* Hero */}
       <div className="text-center mb-12">
+        <div className="mb-6">
+          <Image
+            src="/FLAYSH_pfp.jpg"
+            alt="Itay Flaysher"
+            width={120}
+            height={120}
+            className="mx-auto rounded-full border-2 border-neutral-700 shadow-lg"
+            priority
+          />
+        </div>
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-500/10 px-4 py-2 text-primary-400 mb-4">
           <Sparkles className="h-4 w-4" />
           Full CV / Resume
         </div>
         <h1 className="text-4xl font-bold text-neutral-100 sm:text-5xl">{cvData.name}</h1>
         <p className="mt-2 text-xl text-primary-400">{cvData.title}</p>
-        
-        {/* Contact Info */}
+
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-neutral-400">
           <span className="flex items-center gap-1">
             <MapPin className="h-4 w-4" />
@@ -51,7 +63,6 @@ export default function AboutPage() {
           </span>
         </div>
 
-        {/* Social Links */}
         <div className="mt-6 flex items-center justify-center gap-3">
           <a href={socialLinks.github.url} target="_blank" rel="noopener noreferrer">
             <Button>
@@ -68,7 +79,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Summary */}
       <Card className="mb-12">
         <CardContent className="p-6 sm:p-8">
           <h2 className="text-xl font-bold text-neutral-100 mb-4">Summary</h2>
@@ -77,9 +87,7 @@ export default function AboutPage() {
       </Card>
 
       <div className="grid gap-12 lg:grid-cols-3">
-        {/* Main Content - Experience */}
         <div className="lg:col-span-2 space-y-8">
-          {/* Experience */}
           <section>
             <div className="flex items-center gap-2 mb-6">
               <Briefcase className="h-5 w-5 text-primary-400" />
@@ -143,7 +151,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Why Artlist */}
           <section>
             <div className="flex items-center gap-2 mb-6">
               <Heart className="h-5 w-5 text-accent-400" />
@@ -156,13 +163,13 @@ export default function AboutPage() {
                   because it sits at the intersection of my two passions: <strong className="text-neutral-100">technology and creativity</strong>.
                 </p>
                 <p>
-                  I understand the creator&apos;s perspective — I know the frustration of searching 
+                  I understand the creator&apos;s perspective - I know the frustration of searching 
                   for the perfect track, the joy of finding that one sound that elevates your project, 
                   and the importance of a seamless, intuitive interface.
                 </p>
                 <p>
                   Building FlayshList was my way of demonstrating that I don&apos;t just understand 
-                  Artlist&apos;s product — I&apos;m passionate about it. I want to help build tools that 
+                  Artlist&apos;s product - I&apos;m passionate about it. I want to help build tools that 
                   empower creators like myself.
                 </p>
                 <p className="font-medium text-neutral-100">
@@ -172,11 +179,49 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </section>
+
+          <section>
+            <div className="flex items-center gap-2 mb-6">
+              <Monitor className="h-5 w-5 text-purple-400" />
+              <h2 className="text-2xl font-bold text-neutral-100">Audiovisual Artistry</h2>
+            </div>
+            <Card className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 border-purple-800/30">
+              <CardContent className="p-6 space-y-4 text-neutral-300">
+                <p className="text-lg font-medium text-purple-300">
+                  {audiovisualArtist.tagline}
+                </p>
+                <p>
+                  {audiovisualArtist.bio}
+                </p>
+                <p>
+                  {audiovisualArtist.visualsDescription}
+                </p>
+                <div className="pt-2">
+                  <p className="text-sm text-neutral-400 mb-2">Tools & Techniques:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {audiovisualArtist.skills.map((skill) => (
+                      <Badge key={skill} variant="default" className="bg-purple-500/10 text-purple-300 border-purple-500/20">
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-purple-800/30">
+                  <Link 
+                    href="/reels" 
+                    className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+                  >
+                    <Layers className="h-4 w-4 mr-2" />
+                    View Visual Work
+                    <ExternalLink className="h-3 w-3 ml-1" />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
         </div>
 
-        {/* Sidebar */}
         <div className="space-y-6">
-          {/* Education */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-4">
@@ -195,7 +240,6 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          {/* Skills */}
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-4">
@@ -251,7 +295,6 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          {/* Connect */}
           <Card>
             <CardContent className="p-6">
               <h3 className="font-semibold text-neutral-100 mb-4">Connect</h3>
@@ -300,7 +343,6 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          {/* Passions */}
           <Card>
             <CardContent className="p-6">
               <h3 className="font-semibold text-neutral-100 mb-4">Passions</h3>

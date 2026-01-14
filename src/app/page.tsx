@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Music,
-  Instagram,
+  Monitor,
   ArrowRight,
   Github,
   Linkedin,
@@ -9,24 +10,25 @@ import {
   Sparkles,
   Bot,
   Code,
+  Instagram,
 } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { cn } from '@/lib/design-system';
-import { socialLinks, cvData, soundcloudContent, spotifyEmbed } from '@/data/content';
+import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist } from '@/data/content';
 
 const categories = [
   {
     href: '/music',
     label: 'Music',
     icon: Music,
-    description: 'SoundCloud & Spotify',
+    description: 'DJ Sets & Productions',
     color: 'from-purple-500 to-pink-500',
   },
   {
     href: '/reels',
-    label: 'Reels',
-    icon: Instagram,
-    description: 'Instagram content',
+    label: 'Visuals',
+    icon: Monitor,
+    description: 'VJ & Projection Mapping',
     color: 'from-orange-500 to-red-500',
   },
   {
@@ -41,7 +43,6 @@ const categories = [
 export default function HomePage() {
   return (
     <div className="pb-24">
-      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-b from-neutral-900 to-neutral-950 py-20 sm:py-32">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent" />
@@ -62,7 +63,8 @@ export default function HomePage() {
             
             <p className="mt-6 text-lg text-neutral-400 sm:text-xl">
               6+ years building production-grade web apps with React, Next.js, and TypeScript.
-              Currently a Full Stack Engineer at Apono. Also making electronic music.
+              Currently a Full Stack Engineer at Apono. Also an audiovisual artist - VJing, 
+              projection mapping, and creating live visuals for music events.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -80,7 +82,6 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Quick Social Links */}
             <div className="mt-8 flex items-center justify-center gap-4">
               <a
                 href={socialLinks.linkedin.url}
@@ -114,13 +115,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories Grid */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-neutral-100">Explore</h2>
             <p className="mt-3 text-neutral-400">
-              My music, visual content, and an AI that knows everything about me
+              My music, live visuals, and an AI that knows everything about me
             </p>
           </div>
 
@@ -151,7 +151,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Spotify Embed */}
       <section className="py-20 bg-gradient-to-r from-primary-950/30 to-accent-950/30">
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
@@ -187,7 +186,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured SoundCloud Track */}
+      <section className="py-20 bg-gradient-to-r from-purple-950/20 to-pink-950/20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-4 py-2 text-purple-400 mb-4">
+                <Monitor className="h-4 w-4" />
+                Audiovisual Artist
+              </div>
+              <h2 className="text-3xl font-bold text-neutral-100">{audiovisualArtist.tagline}</h2>
+              <p className="mt-4 text-neutral-400">
+                {audiovisualArtist.visualsDescription}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {audiovisualArtist.skills.slice(0, 5).map((skill) => (
+                  <span
+                    key={skill}
+                    className="rounded-full bg-purple-500/10 px-3 py-1 text-sm text-purple-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              <Link href="/reels" className="mt-6 inline-flex items-center text-purple-400 hover:text-purple-300">
+                View Visual Work
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-square rounded-xl bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
+                <Monitor className="h-16 w-16 text-purple-400/50" />
+              </div>
+              <div className="aspect-square rounded-xl bg-gradient-to-br from-pink-900/30 to-orange-900/30 flex items-center justify-center">
+                <Sparkles className="h-16 w-16 text-pink-400/50" />
+              </div>
+              <div className="aspect-square rounded-xl bg-gradient-to-br from-orange-900/30 to-yellow-900/30 flex items-center justify-center col-span-2">
+                <a
+                  href={socialLinks.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center gap-2 text-neutral-400 hover:text-pink-400 transition-colors"
+                >
+                  <Instagram className="h-12 w-12" />
+                  <span className="text-sm font-medium">@{socialLinks.instagram.username}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center mb-12">
@@ -224,19 +272,29 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About Preview */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4">
           <Card className="bg-gradient-to-r from-primary-900/30 to-accent-900/30 border-primary-800/50">
             <CardContent className="p-8 sm:p-12">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
-                  <h2 className="text-3xl font-bold text-neutral-100">{cvData.name}</h2>
-                  <p className="mt-2 text-lg text-primary-400">{cvData.experience[0].title} at {cvData.experience[0].company}</p>
-                  <p className="mt-4 text-neutral-300">
+                  <div className="flex items-center gap-4 mb-4">
+                    <Image
+                      src="/FLAYSH_pfp.jpg"
+                      alt="Itay Flaysher"
+                      width={64}
+                      height={64}
+                      className="rounded-full border border-neutral-700"
+                    />
+                    <div>
+                      <h2 className="text-2xl font-bold text-neutral-100">{cvData.name}</h2>
+                      <p className="text-primary-400">{cvData.experience[0].title}</p>
+                    </div>
+                  </div>
+                  <p className="text-neutral-300">
                     {cvData.summary.slice(0, 250)}...
                   </p>
-                  
+
                   <div className="mt-6 flex flex-wrap gap-2">
                     {cvData.allSkills.slice(0, 6).map((skill) => (
                       <span
@@ -281,7 +339,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How I Built This */}
       <section className="py-20 bg-gradient-to-r from-neutral-900 to-neutral-950">
         <div className="mx-auto max-w-7xl px-4 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary-500/10 px-4 py-2 text-sm text-primary-400 mb-4">
@@ -304,7 +361,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 text-center">
           <h2 className="text-3xl font-bold text-neutral-100">Let&apos;s Connect</h2>

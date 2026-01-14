@@ -1,4 +1,5 @@
-import { Bot, Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import { Sparkles } from 'lucide-react';
 import { AiChat } from './ai-chat';
 
 export const metadata = {
@@ -9,11 +10,15 @@ export const metadata = {
 export default function ChatPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      {/* Header */}
       <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-accent-500 mb-4">
-          <Bot className="h-8 w-8 text-white" />
-        </div>
+        <Image
+          src="/FLAYSH_pfp.jpg"
+          alt="Itay Flaysher"
+          width={80}
+          height={80}
+          className="mx-auto rounded-full border-2 border-neutral-700 mb-4"
+          priority
+        />
         <h1 className="text-3xl font-bold text-neutral-100">Ask AI About Me</h1>
         <p className="mt-2 text-neutral-400 max-w-lg mx-auto">
           Have questions about my experience, skills, or work? Chat with an AI agent 
@@ -37,10 +42,8 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Chat Interface */}
       <AiChat />
 
-      {/* Footer Note */}
       <div className="mt-6 text-center">
         <p className="text-xs text-neutral-500 flex items-center justify-center gap-1">
           <Sparkles className="h-3 w-3" />
