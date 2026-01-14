@@ -96,7 +96,7 @@ export default function ToolsPage() {
           demonstrating the skills I&apos;d bring to Artlist&apos;s engineering team.
         </p>
         <div className="mt-6">
-          <a href={socialLinks.github.url} target="_blank" rel="noopener noreferrer">
+          <a href={socialLinks.githubRepo.url} target="_blank" rel="noopener noreferrer">
             <Button>
               <Github className="h-4 w-4 mr-2" />
               View Source Code
@@ -317,7 +317,7 @@ export default function ToolsPage() {
               these skills to Artlist&apos;s engineering team!
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href={socialLinks.github.url} target="_blank" rel="noopener noreferrer">
+              <a href={socialLinks.githubRepo.url} target="_blank" rel="noopener noreferrer">
                 <Button size="lg">
                   <Github className="h-5 w-5 mr-2" />
                   View on GitHub

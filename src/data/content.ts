@@ -4,6 +4,10 @@ export const socialLinks = {
     username: 'Flaysh',
     label: 'GitHub',
   },
+  githubRepo: {
+    url: 'https://github.com/Flaysh/flayshlist',
+    label: 'GitHub Repository',
+  },
   linkedin: {
     url: 'https://www.linkedin.com/in/flaysh/',
     username: 'flaysh',
