@@ -31,7 +31,6 @@ export default async function AssetPage({ params }: AssetPageProps) {
     notFound();
   }
 
-  // Fetch related assets (same type, same genre/mood)
   const relatedAssets = await db.asset.findMany({
     where: {
       id: { not: asset.id },

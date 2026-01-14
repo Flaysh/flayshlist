@@ -1,5 +1,3 @@
-// API client functions with types
-
 export interface Asset {
   id: string;
   type: string;
@@ -40,25 +38,32 @@ export interface AssetFilters {
   offset?: number;
 }
 
-export const fetchAssets = async (filters: AssetFilters = {}): Promise<AssetsResponse> => {
+const buildQueryString = (filters: AssetFilters) => {
   const params = new URLSearchParams();
-  Object.entries(filters).forEach(([key, value]) => {
-    if (value !== undefined && value !== '') {
-      params.set(key, String(value));
-    }
-  });
+  for (const [key, value] of Object.entries(filters)) {
+    if (value === undefined || value === '') continue;
+    params.set(key, String(value));
+  }
+  const query = params.toString();
+  return query ? `?${query}` : '';
+};
 
-  const response = await fetch(`/api/assets?${params.toString()}`);
+const fetchJson = async <T>(input: string, errorMessage: string): Promise<T> => {
+  const response = await fetch(input, {
+    headers: { Accept: 'application/json' },
+  });
   if (!response.ok) {
-    throw new Error('Failed to fetch assets');
+    throw new Error(errorMessage);
   }
   return response.json();
 };
 
+export const fetchAssets = async (filters: AssetFilters = {}): Promise<AssetsResponse> => {
+  const query = buildQueryString(filters);
+  return fetchJson<AssetsResponse>(`/api/assets${query}`, 'Failed to fetch assets');
+};
+
 export const fetchAsset = async (id: string): Promise<Asset> => {
-  const response = await fetch(`/api/assets/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch asset');
-  }
-  return response.json();
+  const safeId = encodeURIComponent(id);
+  return fetchJson<Asset>(`/api/assets/${safeId}`, 'Failed to fetch asset');
 };

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { cn } from '@/lib/design-system';
-import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist } from '@/data/content';
+import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist, artlistHighlights } from '@/data/content';
 
 const categories = [
   {
@@ -62,9 +62,9 @@ export default function HomePage() {
             </h1>
             
             <p className="mt-6 text-lg text-neutral-400 sm:text-xl">
-              6+ years building production-grade web apps with React, Next.js, and TypeScript.
-              Currently a Full Stack Engineer at Apono. Also an audiovisual artist - VJing, 
-              projection mapping, and creating live visuals for music events.
+              Senior frontend engineer with 6+ years shipping production React/Next.js products.
+              I build creator-first experiences because I&apos;m also an audiovisual artist, VJ,
+              and music producer working inside the same creative workflows Artlist serves.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -345,12 +345,22 @@ export default function HomePage() {
             <Code className="h-4 w-4" />
             Built for Artlist
           </div>
-          <h2 className="text-3xl font-bold text-neutral-100">FlayshList</h2>
-          <p className="mt-3 text-neutral-400 max-w-xl mx-auto">
-            This portfolio app was built to demonstrate my skills for Artlist. 
-            Next.js, TypeScript, Prisma, TanStack Query, and more.
+          <h2 className="text-3xl font-bold text-neutral-100">Creator empathy meets senior execution</h2>
+          <p className="mt-3 text-neutral-400 max-w-2xl mx-auto">
+            FlayshList is a focused portfolio project that mirrors the creator journey.
+            It demonstrates how I design, build, and ship for the artists who rely on Artlist.
           </p>
-          <div className="mt-8">
+          <div className="mt-10 grid gap-6 sm:grid-cols-3 text-left">
+            {artlistHighlights.map((highlight) => (
+              <Card key={highlight.title} className="bg-neutral-900/60 border-neutral-800">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-neutral-100">{highlight.title}</h3>
+                  <p className="mt-2 text-sm text-neutral-400">{highlight.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="mt-10">
             <Link href="/tools">
               <Button variant="outline">
                 See How I Built This

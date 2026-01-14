@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary brand colors */
   --color-primary-50: #f0f7ff;
   --color-primary-100: #e0efff;
   --color-primary-200: #b9dfff;
@@ -14,7 +13,6 @@
   --color-primary-900: #0a3d6e;
   --color-primary-950: #072749;
 
-  /* Accent colors */
   --color-accent-50: #fff7ed;
   --color-accent-100: #ffeed4;
   --color-accent-200: #ffd9a8;
@@ -27,7 +25,6 @@
   --color-accent-900: #7f300f;
   --color-accent-950: #451605;
 
-  /* Neutral colors */
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f4f4f5;
   --color-neutral-200: #e4e4e7;
@@ -40,19 +37,16 @@
   --color-neutral-900: #18181b;
   --color-neutral-950: #09090b;
 
-  /* Semantic colors */
   --color-success: #22c55e;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
 
-  /* Fonts */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
     "Liberation Mono", monospace;
 
-  /* Animations */
   --animate-spin: spin 1s linear infinite;
   --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -87,7 +81,6 @@
   }
 }
 
-/* Base styles */
 html {
   color-scheme: dark;
 }
@@ -97,7 +90,6 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Custom utility for slide-in animation */
 .animate-in {
   animation-duration: 300ms;
   animation-fill-mode: both;
@@ -107,7 +99,6 @@ body {
   animation-name: slide-in-from-right-full;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -125,12 +116,10 @@ body {
   @apply bg-neutral-600;
 }
 
-/* Focus visible styles */
 :focus-visible {
   @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-neutral-950;
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -141,7 +130,6 @@ body {
   }
 }
 
-/* Instagram embed dark mode styling */
 .instagram-media {
   background: transparent !important;
   border: none !important;
@@ -159,7 +147,6 @@ body {
   overflow: hidden !important;
 }
 
-/* Container for Instagram embeds */
 .instagram-embed-container {
   @apply rounded-xl overflow-hidden bg-neutral-900 border border-neutral-800;
   @apply hover:border-purple-500/30 transition-colors;

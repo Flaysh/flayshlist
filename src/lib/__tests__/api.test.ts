@@ -1,10 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// Mock fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-// Import after mocking
 const { fetchAssets, fetchAsset } = await import('../api');
 
 describe('API Client', () => {
@@ -29,7 +27,12 @@ describe('API Client', () => {
 
       const result = await fetchAssets();
 
-      expect(mockFetch).toHaveBeenCalledWith('/api/assets?');
+      expect(mockFetch).toHaveBeenCalledWith(
+        '/api/assets',
+        expect.objectContaining({
+          headers: { Accept: 'application/json' },
+        })
+      );
       expect(result).toEqual(mockResponse);
     });
 
@@ -56,14 +59,13 @@ describe('API Client', () => {
       await fetchAssets(filters);
 
       expect(mockFetch).toHaveBeenCalledWith(
-        expect.stringContaining('type=music')
+        expect.stringContaining('type=music'),
+        expect.objectContaining({
+          headers: { Accept: 'application/json' },
+        })
       );
-      expect(mockFetch).toHaveBeenCalledWith(
-        expect.stringContaining('genre=desert-bass')
-      );
-      expect(mockFetch).toHaveBeenCalledWith(
-        expect.stringContaining('mood=deep')
-      );
+      expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining('genre=desert-bass'), expect.anything());
+      expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining('mood=deep'), expect.anything());
     });
 
     it('should throw on failed request', async () => {
@@ -87,7 +89,12 @@ describe('API Client', () => {
 
       const result = await fetchAsset('1');
 
-      expect(mockFetch).toHaveBeenCalledWith('/api/assets/1');
+      expect(mockFetch).toHaveBeenCalledWith(
+        '/api/assets/1',
+        expect.objectContaining({
+          headers: { Accept: 'application/json' },
+        })
+      );
       expect(result).toEqual(mockAsset);
     });
   });

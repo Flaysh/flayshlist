@@ -20,7 +20,7 @@ import {
   Layers,
 } from 'lucide-react';
 import { Button, Card, CardContent, Badge } from '@/components/ui';
-import { cvData, socialLinks, contactInfo, audiovisualArtist } from '@/data/content';
+import { cvData, socialLinks, contactInfo, audiovisualArtist, artlistHighlights } from '@/data/content';
 
 export const metadata = {
   title: 'About Me - FlayshList',
@@ -159,23 +159,25 @@ export default function AboutPage() {
             <Card className="bg-gradient-to-r from-accent-900/20 to-primary-900/20 border-accent-800/30">
               <CardContent className="p-6 space-y-4 text-neutral-300">
                 <p>
-                  As both a software engineer and a music producer, I&apos;m drawn to Artlist 
-                  because it sits at the intersection of my two passions: <strong className="text-neutral-100">technology and creativity</strong>.
+                  I&apos;m drawn to Artlist because it sits at the intersection of my two passions:
+                  <strong className="text-neutral-100"> technology and creativity</strong>.
                 </p>
                 <p>
-                  I understand the creator&apos;s perspective - I know the frustration of searching 
-                  for the perfect track, the joy of finding that one sound that elevates your project, 
-                  and the importance of a seamless, intuitive interface.
+                  I understand the creator&apos;s perspective because I live it. I know the friction of
+                  finding the right track, the joy of discovery, and the need for a seamless interface.
                 </p>
                 <p>
-                  Building FlayshList was my way of demonstrating that I don&apos;t just understand 
-                  Artlist&apos;s product - I&apos;m passionate about it. I want to help build tools that 
-                  empower creators like myself.
+                  Building FlayshList was my way of showing how I&apos;d help creators move faster
+                  and feel more confident in their choices.
                 </p>
-                <p className="font-medium text-neutral-100">
-                  With 6+ years of React/Next.js/TypeScript experience and a strong ownership mindset, 
-                  I&apos;m ready to take features from definition to production while fostering cross-functional collaboration.
-                </p>
+                <div className="grid gap-4 sm:grid-cols-3 pt-2">
+                  {artlistHighlights.map((highlight) => (
+                    <div key={highlight.title} className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-4">
+                      <p className="text-sm font-semibold text-neutral-100">{highlight.title}</p>
+                      <p className="mt-2 text-xs text-neutral-400">{highlight.description}</p>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </section>

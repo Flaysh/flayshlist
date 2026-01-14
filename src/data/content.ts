@@ -118,21 +118,14 @@ export const visualContent = {
   ],
 };
 
-export const instagramContent = {
-  profileUrl: visualContent.profileUrl,
-  username: visualContent.username,
-  posts: visualContent.items.filter(item => item.type === 'post'),
-  reels: visualContent.items.filter(item => item.type === 'reel'),
-};
-
 export const cvData = {
   name: 'Itay Flaysher',
   artistName: 'FLAYSH',
-  title: 'Full Stack / Frontend Engineer',
+  title: 'Senior Frontend / Full Stack Engineer',
   location: 'Tel Aviv, Israel',
-  
-  summary: `A highly experienced Full Stack / Frontend engineer with over 6 years of expertise in building production-grade web applications using React/Next.js + TypeScript. Possesses a strong sense of ownership over client-facing products, proficiency in NestJS + GraphQL BFF, and a commitment to performance and delivery quality through comprehensive testing and CI/CD practices. Eager to take features from definition to production while fostering cross-functional collaboration.`,
-  
+
+  summary: `Senior Frontend / Full Stack engineer with 6+ years building production-grade React/Next.js applications. I own features end-to-end, design scalable data flows, and ship with strong testing and CI/CD discipline. As an audiovisual artist and music producer, I bring creator empathy and a sharp sense for UX polish and creative workflows.`,
+
   experience: [
     {
       title: 'Full Stack Engineer',
@@ -196,7 +189,7 @@ export const cvData = {
       ],
     },
   ],
-  
+
   education: [
     {
       institution: 'The Open University of Israel',
@@ -209,7 +202,7 @@ export const cvData = {
       year: '2019',
     },
   ],
-  
+
   skills: {
     frontend: ['React.js', 'Next.js', 'TypeScript', 'Frontend Development'],
     backend: ['NestJS', 'GraphQL', 'API Design', 'Full-Stack Development'],
@@ -217,99 +210,36 @@ export const cvData = {
     devops: ['CI/CD', 'AWS', 'Automated Testing'],
     other: ['Performance Optimization', 'SEO Optimization'],
   },
-  
+
   allSkills: [
     'React.js', 'Next.js', 'TypeScript', 'NestJS', 'GraphQL',
     'CI/CD', 'API Design', 'System Architecture', 'Automated Testing',
     'Frontend Development', 'Full-Stack Development', 'Filtering and Pagination',
     'Performance Optimization', 'AWS', 'SEO Optimization', 'Architecture',
   ],
-  
+
   passions: [
     'Music Production',
-    'VJing & Live Visuals', 
+    'VJing & Live Visuals',
     'Projection Mapping',
     'Creative Technology',
   ],
 };
 
-export const assetTypes = {
-  music: {
-    label: 'Music',
-    icon: 'Music',
-    description: 'Original tracks and productions by FLAYSH',
-    filters: ['genre', 'mood', 'bpm'],
+export const artlistHighlights = [
+  {
+    title: 'Creator-first product thinking',
+    description:
+      'I build from the perspective of a working creator, so discovery, pacing, and export flows feel natural.',
   },
-} as const;
-
-export const filterOptions = {
-  genre: [
-    { value: 'desert-bass', label: 'Desert Bass' },
-    { value: 'electronic', label: 'Electronic' },
-    { value: 'ambient', label: 'Ambient' },
-    { value: 'experimental', label: 'Experimental' },
-  ],
-  mood: [
-    { value: 'energetic', label: 'Energetic' },
-    { value: 'chill', label: 'Chill' },
-    { value: 'deep', label: 'Deep' },
-    { value: 'uplifting', label: 'Uplifting' },
-  ],
-  bpm: [
-    { value: '90-120', label: '90-120 BPM' },
-    { value: '120-150', label: '120-150 BPM' },
-    { value: '150+', label: '150+ BPM' },
-  ],
-} as const;
-
-export const aiAgentContext = `
-You are an AI assistant representing Itay Flaysher (FLAYSH), a Full Stack/Frontend Engineer based in Tel Aviv, Israel.
-
-KEY FACTS:
-- 6+ years of experience in production-grade web applications
-- Currently a Full Stack Engineer at Apono (since April 2024)
-- Previously: Frontend Engineer at Apono, Frontend Engineer at Landa, Co-Founder at MoonWiz
-- Education: Bachelor's in Computer Science and Business from The Open University of Israel (2024)
-- Core stack: React, Next.js, TypeScript, NestJS, GraphQL
-- Also an AudioVisual Artist, VJ, and musician performing as "FLAYSH"
-
-PROFESSIONAL HIGHLIGHTS:
-- At Apono: Owns 4 production client apps, maintains NestJS + GraphQL BFF, 99.999% uptime target
-- At Landa: Lead developer for web.landa.app real estate investing platform
-- At MoonWiz: Co-founded crypto trading platform, led team of 2 engineers
-- Strong focus on: end-to-end feature ownership, CI/CD, automated testing, performance optimization
-
-WHY ARTLIST:
-- Passionate about creative technology at the intersection of code and creativity
-- As a music producer AND audiovisual artist, deeply understands the creator perspective
-- Creates content for artists - VJing, projection mapping, live visuals
-- Built FlayshList as a portfolio project demonstrating product understanding
-- Wants to help build tools that empower creators
-
-AUDIOVISUAL ARTISTRY:
-- VJ (Video Jockey): Creates live visuals for music events, synced to audio
-- Projection Mapping: Transforms physical spaces with projected visuals
-- Tools: TouchDesigner, Resolume Arena, After Effects, Ableton Live
-- Style: Blends analog (CRTs, security cams) with digital for surreal environments
-- Performs at drum & bass events with IDM, psychedelic bass, leftfield textures
-- Treats technology as a living part of the performance
-
-MUSIC:
-- Genres: Desert Bass, Drum & Bass, Electronic, IDM
-- Platforms: SoundCloud (flay5h), Spotify, Instagram (@flaysh_)
-
-THIS UNIQUE COMBINATION:
-- Engineering skills + artistic understanding = perfect fit for Artlist
-- Knows both the technical challenges AND the creative workflows
-- Can build features that actually solve real creator problems
-- Brings empathy for users because he IS one of them
-
-CONTACT:
-- Email: itayf3x@gmail.com
-- Phone: (972) 597-9140
-- LinkedIn: linkedin.com/in/flaysh
-- GitHub: github.com/Flaysh
-
-Answer questions about Itay professionally and enthusiastically. Be concise but informative.
-If asked about something not in your knowledge, politely say you don't have that information.
-`;
+  {
+    title: 'Senior frontend execution',
+    description:
+      'Own features end-to-end with modern React/Next.js patterns, resilient data layers, and strong testing.',
+  },
+  {
+    title: 'Polish that respects the art',
+    description:
+      'Design systems, performance, and accessibility tuned for the creative audience Artlist serves.',
+  },
+];

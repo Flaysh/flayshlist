@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import type { Prisma } from '@prisma/client';
 import { db } from '@/lib/db';
 
 const searchParamsSchema = z.object({
@@ -15,6 +16,17 @@ const searchParamsSchema = z.object({
   limit: z.coerce.number().min(1).max(100).optional(),
   offset: z.coerce.number().min(0).optional(),
 });
+
+const parseRangeValue = (value: string) => {
+  if (value.endsWith('+')) {
+    const min = Number.parseInt(value.slice(0, -1), 10);
+    return Number.isFinite(min) ? { gte: min } : null;
+  }
+
+  const [min, max] = value.split('-').map((part) => Number.parseInt(part, 10));
+  if (!Number.isFinite(min) || !Number.isFinite(max)) return null;
+  return { gte: min, lte: max };
+};
 
 export async function GET(request: NextRequest) {
   try {
@@ -35,8 +47,7 @@ export async function GET(request: NextRequest) {
       offset = 0,
     } = params;
 
-    // Build where clause
-    const where: Record<string, unknown> = {};
+    const where: Prisma.AssetWhereInput = {};
 
     if (type) {
       where.type = type;
@@ -55,51 +66,37 @@ export async function GET(request: NextRequest) {
     }
 
     if (fps) {
-      where.fps = parseInt(fps);
+      const fpsValue = Number.parseInt(fps, 10);
+      if (Number.isFinite(fpsValue)) {
+        where.fps = fpsValue;
+      }
     }
 
-    // BPM range filter
     if (bpm) {
-      const [minBpm, maxBpm] = bpm.split('-').map(Number);
-      if (bpm.endsWith('+')) {
-        where.bpm = { gte: parseInt(bpm) };
-      } else if (minBpm && maxBpm) {
-        where.bpm = { gte: minBpm, lte: maxBpm };
+      const range = parseRangeValue(bpm);
+      if (range) {
+        where.bpm = range;
       }
     }
 
-    // Duration range filter
     if (duration) {
-      const [minDuration, maxDuration] = duration.split('-').map(Number);
-      if (duration.endsWith('+')) {
-        where.durationSec = { gte: parseInt(duration) };
-      } else if (minDuration && maxDuration) {
-        where.durationSec = { gte: minDuration, lte: maxDuration };
+      const range = parseRangeValue(duration);
+      if (range) {
+        where.durationSec = range;
       }
     }
 
-    // Query search (title, description, tags)
     if (query) {
       where.OR = [
-        { title: { contains: query } },
-        { description: { contains: query } },
-        { tags: { contains: query } },
-        { artist: { contains: query } },
+        { title: { contains: query, mode: 'insensitive' } },
+        { description: { contains: query, mode: 'insensitive' } },
+        { tags: { contains: query, mode: 'insensitive' } },
+        { artist: { contains: query, mode: 'insensitive' } },
       ];
     }
 
-    // Sort order
-    const orderBy: Record<string, 'asc' | 'desc'>[] = [];
-    switch (sort) {
-      case 'newest':
-        orderBy.push({ createdAt: 'desc' });
-        break;
-      case 'duration':
-        orderBy.push({ durationSec: 'desc' });
-        break;
-      default:
-        orderBy.push({ createdAt: 'desc' });
-    }
+    const orderBy: Prisma.AssetOrderByWithRelationInput[] =
+      sort === 'duration' ? [{ durationSec: 'desc' }] : [{ createdAt: 'desc' }];
 
     const [assets, total] = await Promise.all([
       db.asset.findMany({

@@ -91,6 +91,12 @@ export const AiChat = () => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const idRef = useRef(1);
+
+  const nextId = () => {
+    idRef.current += 1;
+    return idRef.current.toString();
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -105,7 +111,7 @@ export const AiChat = () => {
     if (!messageText) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: nextId(),
       role: 'user',
       content: messageText,
       timestamp: new Date(),
@@ -120,7 +126,7 @@ export const AiChat = () => {
     const response = generateResponse(messageText);
     
     const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
+      id: nextId(),
       role: 'assistant',
       content: response,
       timestamp: new Date(),

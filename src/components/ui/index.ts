@@ -4,7 +4,4 @@ export { Badge } from './badge';
 export { Card, CardHeader, CardContent, CardFooter } from './card';
 export { Skeleton } from './skeleton';
 export { Select } from './select';
-export { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 export { ToastProvider, useToast } from './toast';
-export { Dialog } from './dialog';
-export { Slider } from './slider';

@@ -4,12 +4,11 @@ import { Github, Linkedin, Instagram, Music } from 'lucide-react';
 import { socialLinks } from '@/data/content';
 
 const navLinks = [
+  { href: '/reels', label: 'Visuals' },
   { href: '/music', label: 'Music' },
-  { href: '/reels', label: 'Reels' },
   { href: '/about', label: 'About Me' },
   { href: '/chat', label: 'Ask AI' },
   { href: '/tools', label: 'How I Built This' },
-  { href: '/license', label: 'License' },
 ];
 
 export const Footer = () => {
@@ -40,7 +39,7 @@ export const Footer = () => {
                 height={16}
                 className="h-4 w-auto opacity-60"
               />
-              <span className="text-xs text-neutral-500">Artist: FLAYSH</span>
+              <span className="text-xs text-neutral-500">FLAYSH</span>
             </div>
 
             <div className="mt-6 flex gap-3">
@@ -104,9 +103,19 @@ export const Footer = () => {
 
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-100">
-              Listen
+              Where to find me
             </h3>
             <ul className="mt-3 space-y-2">
+            <li>
+                <a
+                  href={socialLinks.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
+                >
+                  Instagram
+                </a>
+              </li>
               <li>
                 <a
                   href={socialLinks.soundcloud.url}
@@ -127,23 +136,19 @@ export const Footer = () => {
                   Spotify
                 </a>
               </li>
-              <li>
-                <a
-                  href={socialLinks.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
-                >
-                  Instagram
-                </a>
-              </li>
             </ul>
           </div>
         </div>
-
         <div className="mt-12 border-t border-neutral-800 pt-8">
+          <Image
+            src="/FLAYSH_logo.svg"
+            alt="FLAYSH"
+            width={120}
+            height={48}
+            className="mx-auto h-12 w-auto mb-6"
+          />
           <p className="text-center text-sm text-neutral-500">
-            © {new Date().getFullYear()} FlayshList by Itay Flaysher. Built with Next.js, TypeScript & ❤️
+            © {new Date().getFullYear()} FLAYSH. All rights reserved.
           </p>
         </div>
       </div>

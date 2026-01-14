@@ -1,7 +1,6 @@
 import {
   Code,
   Layers,
-  Database,
   TestTube,
   Workflow,
   Palette,

@@ -15,9 +15,11 @@ const createWrapper = () => {
       },
     },
   });
-  return ({ children }: { children: ReactNode }) => (
+  const Wrapper = ({ children }: { children: ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
+  Wrapper.displayName = 'QueryClientProviderWrapper';
+  return Wrapper;
 };
 
 describe('useAssets', () => {
@@ -46,7 +48,12 @@ describe('useAssets', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockData);
-    expect(mockFetch).toHaveBeenCalledWith('/api/assets?');
+    expect(mockFetch).toHaveBeenCalledWith(
+      '/api/assets',
+      expect.objectContaining({
+        headers: { Accept: 'application/json' },
+      })
+    );
   });
 
   it('should fetch assets with custom filters', async () => {
@@ -71,10 +78,12 @@ describe('useAssets', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringContaining('type=music')
+      expect.stringContaining('type=music'),
+      expect.anything()
     );
     expect(mockFetch).toHaveBeenCalledWith(
-      expect.stringContaining('genre=electronic')
+      expect.stringContaining('genre=electronic'),
+      expect.anything()
     );
   });
 
@@ -118,7 +127,12 @@ describe('useAsset', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(result.current.data).toEqual(mockAsset);
-    expect(mockFetch).toHaveBeenCalledWith('/api/assets/1');
+    expect(mockFetch).toHaveBeenCalledWith(
+      '/api/assets/1',
+      expect.objectContaining({
+        headers: { Accept: 'application/json' },
+      })
+    );
   });
 
   it('should not fetch when id is empty', () => {

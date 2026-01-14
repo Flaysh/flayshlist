@@ -1,10 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import {
-  Play,
-  Pause,
   ExternalLink,
   Share2,
   Clock,
@@ -17,7 +14,6 @@ import {
 import { cn, focusRing } from '@/lib/design-system';
 import { Button, Badge, Card, CardContent, useToast } from '@/components/ui';
 import { AssetCard } from '@/components/catalog';
-import { usePlayerStore } from '@/stores/player-store';
 import type { Asset } from '@/lib/api';
 
 interface AssetDetailProps {
@@ -46,28 +42,15 @@ const formatDate = (date: string | Date) => {
 };
 
 export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
-  const { currentTrack, isPlaying, play, pause, resume } = usePlayerStore();
   const { addToast } = useToast();
 
-  const isCurrentTrack = currentTrack?.id === asset.id;
-  const isAudio = asset.type === 'music';
-
-  const tags = JSON.parse(asset.tags) as string[];
-
-  const handlePlayClick = () => {
-    if (isCurrentTrack) {
-      isPlaying ? pause() : resume();
-    } else {
-      play({
-        id: asset.id,
-        title: asset.title,
-        artist: asset.artist,
-        previewUrl: asset.previewUrl,
-        coverImage: asset.coverImage,
-        type: asset.type,
-      });
+  const tags = (() => {
+    try {
+      return JSON.parse(asset.tags) as string[];
+    } catch {
+      return [];
     }
-  };
+  })();
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -79,7 +62,6 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 pb-32">
-      {/* Back Button */}
       <Link
         href="/music"
         className={cn(
@@ -92,9 +74,7 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
       </Link>
 
       <div className="grid gap-8 lg:grid-cols-3">
-        {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* SoundCloud Embed */}
           <Card className="overflow-hidden">
             <CardContent className="p-0">
               <iframe
@@ -109,7 +89,6 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
             </CardContent>
           </Card>
 
-          {/* Title & Actions */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h1 className="text-3xl font-bold text-neutral-100">{asset.title}</h1>
@@ -137,7 +116,6 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
             </div>
           </div>
 
-          {/* Description */}
           {asset.description && (
             <div>
               <h2 className="text-lg font-semibold text-neutral-100 mb-2">Description</h2>
@@ -145,22 +123,21 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
             </div>
           )}
 
-          {/* Tags */}
-          <div>
-            <h2 className="text-lg font-semibold text-neutral-100 mb-2">Tags</h2>
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <Badge key={tag} variant="default">
-                  {tag}
-                </Badge>
-              ))}
+          {tags.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold text-neutral-100 mb-2">Tags</h2>
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <Badge key={tag} variant="default">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Sidebar */}
         <div className="space-y-6">
-          {/* Metadata */}
           <Card>
             <CardContent className="p-4 space-y-4">
               <h2 className="font-semibold text-neutral-100">Track Details</h2>
@@ -211,7 +188,6 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
             </CardContent>
           </Card>
 
-          {/* Listen CTA */}
           <Card className="bg-gradient-to-br from-primary-900/30 to-accent-900/30">
             <CardContent className="p-4 text-center">
               <Music className="h-8 w-8 text-primary-400 mx-auto mb-3" />
@@ -235,7 +211,6 @@ export const AssetDetail = ({ asset, relatedAssets }: AssetDetailProps) => {
         </div>
       </div>
 
-      {/* Related Assets */}
       {relatedAssets.length > 0 && (
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-neutral-100 mb-6">Related Tracks</h2>

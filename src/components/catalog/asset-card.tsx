@@ -1,11 +1,7 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play, Pause, Clock } from 'lucide-react';
-import { cn, focusRing } from '@/lib/design-system';
+import { Clock } from 'lucide-react';
 import { Badge, Card } from '@/components/ui';
-import { usePlayerStore } from '@/stores/player-store';
 import type { Asset } from '@/lib/api';
 
 interface AssetCardProps {
@@ -20,27 +16,7 @@ const formatDuration = (seconds: number | null) => {
 };
 
 export const AssetCard = ({ asset }: AssetCardProps) => {
-  const { currentTrack, isPlaying, play, pause, resume } = usePlayerStore();
-  const isCurrentTrack = currentTrack?.id === asset.id;
   const isAudio = asset.type === 'music' || asset.type === 'sfx';
-
-  const handlePlayClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (isCurrentTrack) {
-      isPlaying ? pause() : resume();
-    } else {
-      play({
-        id: asset.id,
-        title: asset.title,
-        artist: asset.artist,
-        previewUrl: asset.previewUrl,
-        coverImage: asset.coverImage,
-        type: asset.type,
-      });
-    }
-  };
 
   return (
     <Link href={`/asset/${asset.id}`}>
@@ -54,28 +30,7 @@ export const AssetCard = ({ asset }: AssetCardProps) => {
             unoptimized
           />
 
-          {isAudio && (
-            <button
-              onClick={handlePlayClick}
-              className={cn(
-                'absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity',
-                'group-hover:opacity-100',
-                isCurrentTrack && isPlaying && 'opacity-100',
-                focusRing
-              )}
-              aria-label={isCurrentTrack && isPlaying ? 'Pause' : 'Play'}
-            >
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-500 text-white transition-transform hover:scale-110">
-                {isCurrentTrack && isPlaying ? (
-                  <Pause className="h-6 w-6" />
-                ) : (
-                  <Play className="h-6 w-6 translate-x-0.5" />
-                )}
-              </div>
-            </button>
-          )}
-
-          {asset.durationSec && (
+          {isAudio && asset.durationSec && (
             <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded bg-black/60 px-2 py-1 text-xs text-white">
               <Clock className="h-3 w-3" />
               {formatDuration(asset.durationSec)}
