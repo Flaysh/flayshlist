@@ -57,7 +57,7 @@ const generateResponse = (question: string): string => {
   }
 
   if (q.includes('flayshlist') || q.includes('this app') || q.includes('this project') || q.includes('portfolio') || q.includes('built this')) {
-    return `**FlayshList** is this very app you're using! It's a portfolio project Itay built to showcase his skills for Artlist.\n\n**Tech Stack:**\n• Next.js 16 (App Router) + TypeScript\n• Tailwind CSS + custom design system\n• Prisma + SQLite\n• TanStack Query + Zustand\n• Vitest + Playwright for testing\n\n**Features:**\n• Real SoundCloud & Instagram embeds\n• This AI chat (local knowledge base)\n• Responsive, accessible, dark-first design\n• Full CI/CD setup with GitHub Actions\n\nCheck out the /tools page for more technical details! 🛠️`;
+    return `**FlayshList** is this very app you're using! It's a portfolio project Itay built to showcase his skills for Artlist.\n\n**Tech Stack:**\n• Next.js 16 (App Router) + TypeScript\n• Tailwind CSS + custom design system\n• Prisma + SQLite\n• TanStack Query + Zustand\n• Playwright for E2E testing\n\n**Features:**\n• Real SoundCloud & Instagram embeds\n• This AI chat (local knowledge base)\n• Responsive, accessible, dark-first design\n• Full CI/CD setup with GitHub Actions\n\nCheck out the /tools page for more technical details! 🛠️`;
   }
 
   if (q.includes('your name') || q.includes('who are you') || q.includes('introduce')) {

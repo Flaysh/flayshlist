@@ -14,7 +14,6 @@
   <a href="#tech-stack"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript 5" /></a>
   <a href="#tech-stack"><img src="https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css" alt="Tailwind CSS 4" /></a>
   <a href="#testing"><img src="https://img.shields.io/badge/E2E-Playwright-45ba4b?logo=playwright" alt="Playwright" /></a>
-  <a href="#testing"><img src="https://img.shields.io/badge/Unit-Vitest-729B1B?logo=vitest" alt="Vitest" /></a>
 </p>
 
 ---
@@ -29,8 +28,8 @@ FlayshList is a meticulously architected portfolio application demonstrating mod
 
 - **Server-First Architecture** — Leverages React Server Components by default, minimizing client-side JavaScript
 - **Type-Safe Throughout** — Strict TypeScript configuration with full type coverage
-- **Comprehensive Testing** — E2E tests with Playwright + unit tests with Vitest
-- **Automated CI/CD** — GitHub Actions pipeline with parallel lint, type-check, test, and build jobs
+- **Comprehensive Testing** — E2E tests with Playwright
+- **Automated CI/CD** — GitHub Actions pipeline with parallel lint, type-check, e2e, and build jobs
 - **Performance Optimized** — Aggressive caching, image optimization, and minimal bundle size
 - **Accessibility First** — WCAG-compliant with full keyboard navigation and semantic HTML
 
@@ -42,7 +41,7 @@ FlayshList is a meticulously architected portfolio application demonstrating mod
 |----------|-------------|
 | **Framework** | Next.js 16 (App Router), React 19, TypeScript 5 |
 | **Styling** | Tailwind CSS 4, PostCSS, Custom Design System |
-| **Testing** | Playwright (E2E), Vitest (Unit), Testing Library |
+| **Testing** | Playwright (E2E) |
 | **Quality** | ESLint 9, TypeScript Strict Mode |
 | **CI/CD** | GitHub Actions, Vercel |
 | **Package Manager** | pnpm 9 |
@@ -74,7 +73,7 @@ FlayshList is a meticulously architected portfolio application demonstrating mod
 │                     Quality Gates                               │
 │  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐               │
 │  │   ESLint    │ │  TypeScript │ │   Testing   │               │
-│  │   + Rules   │ │   Strict    │ │  E2E + Unit │               │
+│  │   + Rules   │ │   Strict    │ │     E2E     │               │
 │  └─────────────┘ └─────────────┘ └─────────────┘               │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -176,35 +175,17 @@ pnpm e2e
 - Mobile responsive behavior
 - Accessibility compliance (heading hierarchy, keyboard nav)
 
-### Unit Tests (Vitest)
-```bash
-pnpm test
-```
-
-Component and utility testing with React Testing Library.
-
 ---
 
 ## CI/CD Pipeline
 
-GitHub Actions workflow with four parallel jobs:
+GitHub Actions workflow with three parallel jobs:
 
 ```
-┌─────────────────┐  ┌─────────────────┐
-│      lint       │  │   typecheck     │
-│    (ESLint)     │  │  (TypeScript)   │
-└─────────────────┘  └─────────────────┘
-┌─────────────────┐  ┌─────────────────┐
-│      test       │  │      e2e        │
-│    (Vitest)     │  │  (Playwright)   │
-└─────────────────┘  └─────────────────┘
-         │                    │
-         └────────┬───────────┘
-                  ▼
-         ┌─────────────────┐
-         │      build      │
-         │   (Next.js)     │
-         └─────────────────┘
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│ lint+typecheck  │  │      e2e        │  │      build      │
+│ (ESLint + TSC)  │  │  (Playwright)   │  │   (Next.js)     │
+└─────────────────┘  └─────────────────┘  └─────────────────┘
 ```
 
 ---
@@ -258,5 +239,4 @@ pnpm dev
 | `pnpm start` | Start production server |
 | `pnpm lint` | Run ESLint |
 | `pnpm typecheck` | Run TypeScript compiler |
-| `pnpm test` | Run unit tests |
 | `pnpm e2e` | Run E2E tests |
