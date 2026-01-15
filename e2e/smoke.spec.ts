@@ -4,9 +4,9 @@ test.describe('Navigation', () => {
   test('homepage loads with key elements', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page.getByRole('heading', { name: /FLAYSH/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Hey, I'm FLAYSH/i })).toBeVisible();
     await expect(page.getByRole('navigation')).toBeVisible();
-    await expect(page.getByText('Music')).toBeVisible();
+    await expect(page.getByRole('link', { name: /Music/ }).first()).toBeVisible();
   });
 
   test('navigates to music page', async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe('Navigation', () => {
     await page.getByRole('link', { name: /about/i }).first().click();
 
     await expect(page).toHaveURL('/about');
-    await expect(page.getByText('Itay Flaysher')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Itay Flaysher' })).toBeVisible();
   });
 
   test('navigates to chat page', async ({ page }) => {
@@ -72,17 +72,17 @@ test.describe('AI Chat', () => {
 
   test('responds to user message', async ({ page }) => {
     await page.goto('/chat');
-    
+
     await page.fill('input[placeholder*="Ask anything"]', 'What is your tech stack?');
-    await page.click('button:has(svg)');
+    await page.getByRole('button', { name: /send/i }).click();
 
     await expect(page.getByText(/React.js/i)).toBeVisible({ timeout: 5000 });
   });
 
   test('suggested questions work', async ({ page }) => {
     await page.goto('/chat');
-    
-    await page.getByText("What's your tech stack?").click();
+
+    await page.getByRole('button', { name: "What's your tech stack?" }).click();
     await expect(page.getByText(/React.js/i)).toBeVisible({ timeout: 5000 });
   });
 });
@@ -103,7 +103,7 @@ test.describe('Mobile Navigation', () => {
     await page.goto('/');
 
     await page.getByRole('button', { name: /toggle navigation/i }).click();
-    await page.getByRole('link', { name: /music/i }).click();
+    await page.getByLabel('Mobile navigation').getByRole('link', { name: 'Music' }).click();
 
     await expect(page).toHaveURL('/music');
   });
@@ -114,7 +114,7 @@ test.describe('About Page', () => {
     await page.goto('/about');
 
     await expect(page.getByText('Professional Experience')).toBeVisible();
-    await expect(page.getByText('Apono')).toBeVisible();
+    await expect(page.getByText('Apono').first()).toBeVisible();
   });
 
   test('displays skills section', async ({ page }) => {
