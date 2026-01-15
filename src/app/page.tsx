@@ -179,17 +179,7 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
-                <Image
-                  src="/pm_img.webp"
-                  alt="Portrait performance still"
-                  fill
-                  sizes="(min-width: 1024px) 30vw, (min-width: 768px) 33vw, 100vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  priority
-                />
-              </div>
-              <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
                 <video
                   className="h-full w-full object-cover"
                   autoPlay
@@ -200,6 +190,16 @@ export default function HomePage() {
                 >
                   <source src="/pm_studio.webm" type="video/webm" />
                 </video>
+              </div>
+              <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
+                <Image
+                  src="/pm_img.webp"
+                  alt="Portrait performance still"
+                  fill
+                  sizes="(min-width: 1024px) 30vw, (min-width: 768px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  priority
+                />
               </div>
               <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-purple-800/40 bg-neutral-900/50 shadow-2xl">
                 <video
