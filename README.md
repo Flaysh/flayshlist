@@ -22,7 +22,7 @@
 
 FlayshList is a meticulously architected portfolio application demonstrating modern frontend engineering practices. Built with a focus on performance, accessibility, and maintainability, this project showcases production-ready patterns while maintaining intentional simplicity.
 
-**Live Demo**: [flayshlist.vercel.app](https://flayshlist.vercel.app)
+**Live Demo**: [artlist.flaysh.com](https://artlist.flaysh.com)
 
 ### Key Engineering Highlights
 
