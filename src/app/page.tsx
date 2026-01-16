@@ -187,6 +187,7 @@ export default function HomePage() {
                   muted
                   playsInline
                   preload="metadata"
+                  poster="/pm_img.webp"
                 >
                   <source src="/pm_studio.webm" type="video/webm" />
                 </video>
@@ -209,6 +210,7 @@ export default function HomePage() {
                   muted
                   playsInline
                   preload="metadata"
+                  poster="/pm_img.webp"
                 >
                   <source src="/pm_vid.webm" type="video/webm" />
                 </video>

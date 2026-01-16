@@ -15,8 +15,9 @@ import { Button, Card, CardContent, Badge } from '@/components/ui';
 import { socialLinks } from '@/data/content';
 
 export const metadata = {
-  title: 'How I Built This - FlayshList',
-  description: 'Technical deep-dive into how FlayshList was built with Next.js, TypeScript, and more.',
+  title: 'Technical Deep-Dive',
+  description:
+    'How I built this portfolio with Next.js 16, React 19, TypeScript, and Tailwind CSS. Server Components, performance optimization, and CI/CD.',
 };
 
 const techStack = [
