@@ -5,7 +5,7 @@ import { soundcloudContent, spotifyEmbed, socialLinks } from '@/data/content';
 
 export const metadata = {
   title: 'Music - FlayshList',
-  description: 'Original music productions by FLAYSH - Desert Bass, Electronic, and more.',
+  description: 'Original music productions by FLAYSH - Neuro-Future DnB and Electronic music.',
 };
 
 export default function MusicPage() {
@@ -22,7 +22,7 @@ export default function MusicPage() {
         />
         <h1 className="text-4xl font-bold text-neutral-100">Music</h1>
         <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto">
-          Original productions spanning desert bass, electronic, and experimental genres.
+          Original productions spanning neuro-future DnB and electronic genres.
           Stream on your favorite platform.
         </p>
         <div className="mt-6 flex items-center justify-center gap-4">
