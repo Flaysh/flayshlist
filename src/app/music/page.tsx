@@ -4,8 +4,9 @@ import { Button, Card, CardContent } from '@/components/ui';
 import { soundcloudContent, spotifyEmbed, socialLinks } from '@/data/content';
 
 export const metadata = {
-  title: 'Music - FlayshList',
-  description: 'Original music productions by FLAYSH - Neuro-Future DnB and Electronic music.',
+  title: 'Music',
+  description:
+    'Original electronic music productions by FLAYSH. Neuro-future DnB, desert bass, and experimental sounds.',
 };
 
 export default function MusicPage() {

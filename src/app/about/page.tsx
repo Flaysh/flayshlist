@@ -23,8 +23,9 @@ import { Button, Card, CardContent, Badge } from '@/components/ui';
 import { cvData, socialLinks, contactInfo, audiovisualArtist, artlistHighlights } from '@/data/content';
 
 export const metadata = {
-  title: 'About Me - FlayshList',
-  description: 'Learn about Itay Flaysher (FLAYSH) - Full Stack Engineer & AudioVisual Artist.',
+  title: 'About',
+  description:
+    'Senior Frontend Engineer with 6+ years of React/Next.js experience. Audiovisual artist and music producer based in Tel Aviv.',
 };
 
 export default function AboutPage() {

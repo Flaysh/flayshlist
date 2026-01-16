@@ -3,8 +3,9 @@ import { Bot, Zap, Shield, Brain } from 'lucide-react';
 import { AiChat } from './ai-chat';
 
 export const metadata = {
-  title: 'AI Chat - FlayshList',
-  description: 'Chat with an AI assistant that knows all about Itay Flaysher.',
+  title: 'Ask AI',
+  description:
+    'Chat with an AI assistant about my experience, skills, and projects. Built with streaming responses and modern React patterns.',
 };
 
 export default function ChatPage() {
