@@ -3,6 +3,7 @@ import { Providers } from '@/components/providers';
 import { Header, Footer } from '@/components/layout';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
+import { GoogleAnalytics } from '@/components/google-analytics';
 
 const siteUrl = 'https://artlist.flaysh.com';
 
@@ -108,6 +109,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <Analytics />
+          <GoogleAnalytics />
         </Providers>
       </body>
     </html>
