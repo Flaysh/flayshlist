@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ToolkitUsage {
+  id         String   @id @default(uuid())
+  ipHash     String   @map("ip_hash")
+  dateKey    DateTime @map("date_key") @db.Date
+  imageCount Int      @default(0) @map("image_count")
+  videoCount Int      @default(0) @map("video_count")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([ipHash, dateKey])
+  @@index([ipHash])
+  @@index([dateKey])
+  @@map("toolkit_usage")
+}
+
+model ToolkitSession {
+  id           String   @id @default(uuid())
+  toolType     String   @map("tool_type")
+  prompt       String
+  modelId      String   @map("model_id")
+  aspectRatio  String   @map("aspect_ratio")
+  variations   Int?
+  durationSec  Int?     @map("duration_sec")
+  resolution   String?
+  ipHash       String   @map("ip_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  assets ToolkitAsset[]
+
+  @@index([ipHash])
+  @@index([createdAt])
+  @@map("toolkit_session")
+}
+
+model ToolkitAsset {
+  id              String   @id @default(uuid())
+  sessionId       String   @map("session_id")
+  kind            String
+  width           Int?
+  height          Int?
+  durationSec     Int?     @map("duration_sec")
+  urlOriginal     String   @map("url_original")
+  urlWatermarked  String   @map("url_watermarked")
+  metadata        Json?
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  session ToolkitSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@map("toolkit_asset")
+}

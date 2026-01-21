@@ -4,9 +4,10 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin } from 'lucide-react';
+import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin, Wand2 } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { socialLinks } from '@/data/content';
+import { Badge } from '@/components/ui/badge';
 
 const mainLinks = [
   { href: '/music', label: 'Music', icon: Music },
@@ -15,6 +16,8 @@ const mainLinks = [
   { href: '/chat', label: 'Ask AI', icon: Bot },
   { href: '/tools', label: 'How I Built This', icon: Wrench },
 ];
+
+const toolkitLink = { href: '/toolkit', label: 'FLAYSH AI Toolkit', icon: Wand2, isNew: true };
 
 export const Header = () => {
   const pathname = usePathname();
@@ -60,6 +63,22 @@ export const Header = () => {
                 {link.label}
               </Link>
             ))}
+            <Link
+              href={toolkitLink.href}
+              className={cn(
+                'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors bg-gradient-to-r from-primary-500/10 to-accent-500/10 border border-primary-500/20',
+                isActive(toolkitLink.href)
+                  ? 'text-primary-400'
+                  : 'text-neutral-100 hover:border-primary-500/40',
+                focusRing
+              )}
+            >
+              <toolkitLink.icon className="h-4 w-4" />
+              {toolkitLink.label}
+              <Badge variant="success" className="ml-1 text-[10px] px-1.5 py-0.5">
+                New
+              </Badge>
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -127,6 +146,23 @@ export const Header = () => {
                   </Link>
                 );
               })}
+              <Link
+                href={toolkitLink.href}
+                className={cn(
+                  'flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors bg-gradient-to-r from-primary-500/10 to-accent-500/10 border border-primary-500/20',
+                  isActive(toolkitLink.href)
+                    ? 'bg-primary-500/10 text-primary-400'
+                    : 'text-neutral-100 hover:border-primary-500/40',
+                  focusRing
+                )}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <toolkitLink.icon className="h-4 w-4" />
+                {toolkitLink.label}
+                <Badge variant="success" className="ml-1 text-[10px] px-1.5 py-0.5">
+                  New
+                </Badge>
+              </Link>
               <div className="my-2 border-t border-neutral-800" />
               <a
                 href={socialLinks.github.url}

@@ -41,6 +41,9 @@ FlayshList is a meticulously architected portfolio application demonstrating mod
 |----------|-------------|
 | **Framework** | Next.js 16 (App Router), React 19, TypeScript 5 |
 | **Styling** | Tailwind CSS 4, PostCSS, Custom Design System |
+| **Database** | PostgreSQL (Vercel Postgres/Neon), Prisma ORM |
+| **Storage** | Vercel Blob Storage |
+| **AI/ML** | Replicate API (FLUX, LTX Video) |
 | **Testing** | Playwright (E2E) |
 | **Quality** | ESLint 9, TypeScript Strict Mode |
 | **CI/CD** | GitHub Actions, Vercel |
@@ -240,3 +243,200 @@ pnpm dev
 | `pnpm lint` | Run ESLint |
 | `pnpm typecheck` | Run TypeScript compiler |
 | `pnpm e2e` | Run E2E tests |
+| `pnpm prisma generate` | Generate Prisma client |
+| `pnpm prisma migrate dev` | Run database migrations (dev) |
+
+---
+
+## FLAYSH AI Toolkit
+
+The **FLAYSH AI Toolkit** is a production-ready AI generation feature that demonstrates enterprise-level architecture with Artlist.io's toolkit aesthetic. Built with cost-effective AI providers, robust rate limiting, and watermarked outputs.
+
+### Features
+
+- **AI Image Generation** — Create stunning images with FLUX models (2 generations/day)
+- **AI Video Generation** — Generate short videos with LTX Video (1 generation/day)
+- **Explore Gallery** — Curated presets with copy-to-create workflow
+- **History Rail** — Session-based history with asset previews
+- **Watermarking** — Automated watermark application on all outputs
+- **Rate Limiting** — IP-based quotas with burst protection
+- **Glass UI** — Premium dark theme with glassmorphism and subtle animations
+
+### Setup Instructions
+
+#### 1. Database Setup (Vercel Postgres)
+
+Add PostgreSQL database via Vercel dashboard:
+
+```bash
+# In your Vercel project dashboard:
+# Storage → Add → Postgres (Neon-backed)
+# This will automatically add DATABASE_URL to your environment variables
+```
+
+Pull environment variables locally:
+
+```bash
+vercel env pull .env.local
+```
+
+#### 2. Blob Storage Setup
+
+Add Vercel Blob storage:
+
+```bash
+# In your Vercel project dashboard:
+# Storage → Add → Blob Store
+# This will add BLOB_READ_WRITE_TOKEN to your environment
+```
+
+#### 3. Environment Variables
+
+Create/update `.env.local` with:
+
+```bash
+# Database (from Vercel Postgres)
+DATABASE_URL=postgres://user:password@host:5432/dbname
+
+# Vercel Blob Storage (from Vercel Blob)
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxxxxxxxx
+
+# Replicate API (sign up at replicate.com)
+REPLICATE_API_TOKEN=r8_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# IP Hashing Salt (generate a random string)
+IP_HASH_SALT=your-random-secure-salt-here
+```
+
+#### 4. Database Migrations
+
+Run Prisma migrations to create tables:
+
+```bash
+# Generate Prisma client
+pnpm prisma generate
+
+# Create and apply migrations (development)
+pnpm prisma migrate dev --name init
+
+# For production (Vercel automatically runs migrations)
+# Set this in Vercel project settings:
+# Build Command: prisma migrate deploy && next build
+```
+
+#### 5. Replicate API Setup
+
+1. Sign up at [replicate.com](https://replicate.com)
+2. Get your API token from Account Settings
+3. Add `REPLICATE_API_TOKEN` to `.env.local`
+
+### Architecture
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    FLAYSH AI Toolkit                         │
+├──────────────────────────────────────────────────────────────┤
+│  Frontend (Next.js App Router)                               │
+│  ├─ /toolkit/page.tsx (Main page)                            │
+│  ├─ ToolkitShell (Layout + state management)                 │
+│  ├─ Sidebar (Image/Video tool selector)                      │
+│  ├─ Tabs (Explore/Create)                                    │
+│  ├─ ExploreGallery (Curated presets)                         │
+│  ├─ CreatePanels (Image/Video forms)                         │
+│  ├─ ResultsGrid (Generated assets)                           │
+│  └─ SessionsRail (History sidebar)                           │
+├──────────────────────────────────────────────────────────────┤
+│  API Routes                                                   │
+│  ├─ POST /api/toolkit/image                                  │
+│  ├─ POST /api/toolkit/video                                  │
+│  └─ GET  /api/toolkit/sessions                               │
+├──────────────────────────────────────────────────────────────┤
+│  Server-Side Logic                                            │
+│  ├─ IP hashing (privacy-first user identification)           │
+│  ├─ Rate limiting (quotas + burst protection)                │
+│  ├─ Replicate integration (FLUX, LTX Video)                  │
+│  ├─ Watermarking (sharp for images, ffmpeg for videos)       │
+│  └─ Blob storage (Vercel Blob for assets)                    │
+├──────────────────────────────────────────────────────────────┤
+│  Database (PostgreSQL via Prisma)                            │
+│  ├─ toolkit_usage (quotas tracking)                          │
+│  ├─ toolkit_session (generation sessions)                    │
+│  └─ toolkit_asset (generated outputs)                        │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Quotas & Rate Limiting
+
+**Daily Quotas (per IP address):**
+- Image generations: 2 sessions/day
+- Video generations: 1 session/day
+
+**Burst Protection:**
+- Max 3 requests per 30 seconds
+
+**Privacy:**
+- Raw IPs are never stored
+- All tracking uses SHA-256 hashed IPs with salt
+
+### Tech Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| **Replicate API** | Cost-effective, serverless-friendly, no GPU infrastructure needed |
+| **IP-based quotas** | No authentication required, maintains public access |
+| **Hashed IPs** | Privacy-compliant user tracking without storing PII |
+| **Vercel Blob** | Simple, scalable asset storage with CDN |
+| **Server-side watermarking** | Prevents circumvention, ensures brand protection |
+| **Prisma ORM** | Type-safe database queries, great DX |
+
+### Cost Optimization
+
+- **FLUX Schnell** — Fast, budget-friendly image model
+- **LTX Video** — Efficient short-form video generation
+- **480p default** — Balances quality and generation cost
+- **Vercel Blob** — Pay-per-use storage (first 100GB free)
+- **Quotas** — Prevents abuse and controls costs
+
+### File Structure
+
+```
+src/
+├── app/
+│   ├── api/toolkit/
+│   │   ├── image/route.ts          # Image generation endpoint
+│   │   ├── video/route.ts          # Video generation endpoint
+│   │   └── sessions/route.ts       # History fetch endpoint
+│   └── toolkit/
+│       ├── page.tsx                # Main toolkit page
+│       ├── components/             # UI components
+│       └── data/                   # Curated presets (JSON)
+├── lib/toolkit/
+│   ├── db.ts                       # Prisma client singleton
+│   ├── ip.ts                       # IP hashing utilities
+│   ├── rate-limit.ts               # Quota enforcement
+│   ├── watermark-image.ts          # Image watermarking (sharp)
+│   ├── watermark-video.ts          # Video watermarking (ffmpeg)
+│   └── types.ts                    # TypeScript definitions
+└── prisma/
+    └── schema.prisma               # Database schema
+```
+
+### Deployment Checklist
+
+- [ ] Add Vercel Postgres integration
+- [ ] Add Vercel Blob storage
+- [ ] Set all environment variables in Vercel
+- [ ] Run database migrations
+- [ ] Test image generation (check watermark)
+- [ ] Test video generation (check watermark)
+- [ ] Verify rate limiting works
+- [ ] Confirm quotas reset daily
+
+### Future Enhancements
+
+- Add user authentication for higher quotas
+- Implement credit system for power users
+- Add more AI models (Stable Diffusion XL, etc.)
+- Support custom watermarks
+- Add generation queue for async processing
+- Implement webhook notifications

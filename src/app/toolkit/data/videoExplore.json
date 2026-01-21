@@ -1,0 +1,66 @@
+[
+  {
+    "id": "vid-1",
+    "title": "Cinematic Drone Shot",
+    "prompt": "Aerial drone footage flying over a misty mountain valley at sunrise, smooth cinematic movement, epic landscape",
+    "modelId": "wan_fast",
+    "aspectRatio": "16:9",
+    "durationSec": 5
+  },
+  {
+    "id": "vid-2",
+    "title": "Product Reveal",
+    "prompt": "Modern smartphone rotating on a pedestal against a gradient background, smooth 360-degree rotation, commercial product video",
+    "modelId": "wan_fast",
+    "aspectRatio": "1:1",
+    "durationSec": 4
+  },
+  {
+    "id": "vid-3",
+    "title": "Abstract Motion",
+    "prompt": "Flowing abstract liquid shapes morphing and changing colors, vibrant gradient transitions, mesmerizing motion graphics",
+    "modelId": "wan_fast",
+    "aspectRatio": "1:1",
+    "durationSec": 5
+  },
+  {
+    "id": "vid-4",
+    "title": "Nature Timelapse",
+    "prompt": "Timelapse of clouds moving over a mountain peak, dramatic sky, natural lighting changes, landscape cinematography",
+    "modelId": "wan_fast",
+    "aspectRatio": "16:9",
+    "durationSec": 5
+  },
+  {
+    "id": "vid-5",
+    "title": "Social Media Reel",
+    "prompt": "Fast-paced montage of urban street scenes, people walking, cars passing, trendy vertical video for social media",
+    "modelId": "wan_fast",
+    "aspectRatio": "9:16",
+    "durationSec": 4
+  },
+  {
+    "id": "vid-6",
+    "title": "Tech Animation",
+    "prompt": "Futuristic holographic interface with glowing particles and data streams, sci-fi technology visualization, blue and cyan colors",
+    "modelId": "wan_fast",
+    "aspectRatio": "16:9",
+    "durationSec": 5
+  },
+  {
+    "id": "vid-7",
+    "title": "Ocean Waves",
+    "prompt": "Slow motion ocean waves crashing on a tropical beach, crystal clear water, peaceful coastal scene",
+    "modelId": "wan_fast",
+    "aspectRatio": "16:9",
+    "durationSec": 8
+  },
+  {
+    "id": "vid-8",
+    "title": "City Night Drive",
+    "prompt": "POV driving through a neon-lit city at night, bokeh lights, cinematic travel footage, cyberpunk aesthetic",
+    "modelId": "wan_fast",
+    "aspectRatio": "16:9",
+    "durationSec": 8
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "id": "img-1",
+    "title": "Futuristic Cityscape",
+    "prompt": "A stunning futuristic cityscape at sunset, neon lights reflecting off glass skyscrapers, flying vehicles in the sky, cyberpunk aesthetic, highly detailed, 8k resolution",
+    "modelId": "flux_fast",
+    "aspectRatio": "16:9"
+  },
+  {
+    "id": "img-2",
+    "title": "Abstract Art",
+    "prompt": "Abstract geometric patterns in vibrant colors, flowing shapes and gradients, modern minimalist design, digital art style",
+    "modelId": "flux_fast",
+    "aspectRatio": "1:1"
+  },
+  {
+    "id": "img-3",
+    "title": "Nature Photography",
+    "prompt": "Serene mountain landscape with crystal clear lake reflection, morning mist, dramatic clouds, professional photography, golden hour lighting",
+    "modelId": "flux_fast",
+    "aspectRatio": "16:9"
+  },
+  {
+    "id": "img-4",
+    "title": "Portrait Art",
+    "prompt": "Cinematic portrait of a person wearing futuristic tech clothing, dramatic lighting, shallow depth of field, professional studio photography",
+    "modelId": "flux_fast",
+    "aspectRatio": "9:16"
+  },
+  {
+    "id": "img-5",
+    "title": "Product Mockup",
+    "prompt": "Minimal product photography setup with modern smartphone on clean white background, professional studio lighting, commercial advertising style",
+    "modelId": "flux_fast",
+    "aspectRatio": "1:1"
+  },
+  {
+    "id": "img-6",
+    "title": "Fantasy Scene",
+    "prompt": "Magical forest with glowing mushrooms and fireflies, ancient trees, mystical atmosphere, fantasy illustration, vibrant colors",
+    "modelId": "flux_fast",
+    "aspectRatio": "16:9"
+  },
+  {
+    "id": "img-7",
+    "title": "Architecture",
+    "prompt": "Modern minimalist architecture with concrete and glass, clean lines, geometric shapes, professional architectural photography",
+    "modelId": "flux_fast",
+    "aspectRatio": "9:16"
+  },
+  {
+    "id": "img-8",
+    "title": "Space Art",
+    "prompt": "Deep space nebula with vibrant purple and blue gases, distant stars and galaxies, cosmic artwork, astronomical photography style",
+    "modelId": "flux_fast",
+    "aspectRatio": "16:9"
+  },
+  {
+    "id": "img-9",
+    "title": "Food Photography",
+    "prompt": "Gourmet dish plating with artistic presentation, professional food photography, warm natural lighting, shallow depth of field",
+    "modelId": "flux_fast",
+    "aspectRatio": "1:1"
+  },
+  {
+    "id": "img-10",
+    "title": "Digital Character",
+    "prompt": "3D rendered character in anime style, colorful hair and outfit, dynamic pose, professional character design, studio lighting",
+    "modelId": "flux_fast",
+    "aspectRatio": "9:16"
+  },
+  {
+    "id": "img-11",
+    "title": "Vintage Poster",
+    "prompt": "Retro travel poster design with bold typography, vintage color palette, geometric shapes, 1960s advertising style",
+    "modelId": "flux_fast",
+    "aspectRatio": "9:16"
+  },
+  {
+    "id": "img-12",
+    "title": "Urban Photography",
+    "prompt": "Street photography in Tokyo at night, neon signs, rain reflections on pavement, cinematic mood, urban exploration",
+    "modelId": "flux_fast",
+    "aspectRatio": "16:9"
+  }
+]
