@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Providers } from '@/components/providers';
 import { Header, Footer } from '@/components/layout';
+import { NewBanner } from '@/components/site';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@/components/google-analytics';
@@ -105,6 +106,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Providers>
+          <NewBanner />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

@@ -4,13 +4,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin } from 'lucide-react';
+import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin, Wand2 } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { socialLinks } from '@/data/content';
 
 const mainLinks = [
   { href: '/music', label: 'Music', icon: Music },
   { href: '/reels', label: 'Visuals', icon: Monitor },
+  { href: '/ai-toolkit', label: 'AI Toolkit', icon: Wand2, isNew: true },
   { href: '/about', label: 'About Me', icon: Sparkles },
   { href: '/chat', label: 'Ask AI', icon: Bot },
   { href: '/tools', label: 'How I Built This', icon: Wrench },
@@ -58,6 +59,11 @@ export const Header = () => {
               >
                 <link.icon className="h-4 w-4" />
                 {link.label}
+                {'isNew' in link && link.isNew && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full">
+                    NEW
+                  </span>
+                )}
               </Link>
             ))}
           </nav>
@@ -124,6 +130,11 @@ export const Header = () => {
                   >
                     <Icon className="h-4 w-4" />
                     {link.label}
+                    {'isNew' in link && link.isNew && (
+                      <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full">
+                        NEW
+                      </span>
+                    )}
                   </Link>
                 );
               })}

@@ -11,10 +11,13 @@ import {
   Bot,
   Code,
   Instagram,
+  Wand2,
 } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { cn } from '@/lib/design-system';
 import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist, artlistHighlights } from '@/data/content';
+import { getLatestAssets, generateSeedAssets } from '@/lib/gallery';
+import { AIToolkitPreview } from './ai-toolkit-preview';
 
 const categories = [
   {
@@ -40,7 +43,15 @@ const categories = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch assets for AI Toolkit preview
+  let previewAssets = await getLatestAssets(6);
+  if (previewAssets.length < 6) {
+    const seedCount = 6 - previewAssets.length;
+    const seedAssets = generateSeedAssets(seedCount);
+    previewAssets = [...previewAssets, ...seedAssets.slice(0, seedCount)];
+  }
+
   return (
     <div className="pb-24">
       <section className="relative overflow-hidden bg-gradient-to-b from-neutral-900 to-neutral-950 py-20 sm:py-32">
@@ -112,6 +123,37 @@ export default function HomePage() {
               </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* AI Toolkit Hero & Preview */}
+      <section className="py-16 bg-gradient-to-b from-neutral-950 via-blue-950/20 to-neutral-950 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10" />
+        <div className="relative mx-auto max-w-7xl px-4">
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/10 px-4 py-2 text-sm text-white/80 mb-4">
+              <Wand2 className="h-4 w-4 text-blue-400" />
+              <span className="font-semibold text-blue-400">NEW</span>
+              FLAYSH AI Toolkit
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-100 mb-4">
+              Generate Stunning AI Images
+            </h2>
+            <p className="text-lg text-neutral-400 max-w-2xl mx-auto mb-8">
+              Create beautiful, high-quality images with state-of-the-art AI.
+              Powered by FLUX Schnell. Free to use, no sign-up required.
+            </p>
+            <Link href="/ai-toolkit">
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
+                <Wand2 className="h-5 w-5 mr-2" />
+                Open AI Toolkit
+                <ArrowRight className="h-5 w-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+
+          {/* Preview Grid */}
+          <AIToolkitPreview assets={previewAssets} />
         </div>
       </section>
 
