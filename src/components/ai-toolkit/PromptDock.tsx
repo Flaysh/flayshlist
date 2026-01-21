@@ -3,18 +3,13 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   Sparkles,
-  Square,
   Image as ImageIcon,
   Video,
   Loader2,
   Upload,
-  RefreshCw,
   ChevronDown,
   Wand2,
-  Settings2,
   Ratio,
-  Clock,
-  Volume2,
   MonitorPlay,
   SlidersHorizontal,
 } from 'lucide-react';

@@ -1,21 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 const BANNER_DISMISSED_KEY = 'flaysh-ai-banner-dismissed';
 
 export function NewBanner() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Check localStorage after mount to avoid hydration mismatch
-    const dismissed = localStorage.getItem(BANNER_DISMISSED_KEY);
-    if (!dismissed) {
-      setIsVisible(true);
-    }
-  }, []);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !localStorage.getItem(BANNER_DISMISSED_KEY);
+  });
 
   const handleDismiss = () => {
     localStorage.setItem(BANNER_DISMISSED_KEY, 'true');
