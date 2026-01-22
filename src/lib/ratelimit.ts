@@ -37,6 +37,15 @@ export type RateLimitResult = {
 };
 
 export async function checkRateLimit(identifier: string): Promise<RateLimitResult> {
+  // Skip rate limiting for localhost/development
+  const isLocalhost = identifier === '127.0.0.1' || identifier === '::1' || identifier === 'localhost' || identifier === 'anonymous';
+  if (isLocalhost && process.env.NODE_ENV === 'development') {
+    return {
+      allowed: true,
+      remaining: 999,
+    };
+  }
+
   // Check hourly limit first
   const hourlyResult = await hourlyLimiter.limit(identifier);
   if (!hourlyResult.success) {

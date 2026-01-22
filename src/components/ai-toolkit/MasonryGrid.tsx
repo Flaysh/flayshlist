@@ -2,19 +2,34 @@
 
 import { useState } from 'react';
 import { Image as ImageIcon, RefreshCw, Sparkles } from 'lucide-react';
-import type { GeneratedAsset } from '@/types/ai';
+import type { GeneratedAsset, RecreateSettings } from '@/types/ai';
 import { AssetModal } from './AssetModal';
+import { getModelDisplayName, getAspectClass } from '@/lib/ai-models';
 
 type MasonryGridProps = {
   assets: GeneratedAsset[];
+  onRecreate?: (settings: RecreateSettings) => void;
 };
 
-export function MasonryGrid({ assets }: MasonryGridProps) {
+export function MasonryGrid({ assets, onRecreate }: MasonryGridProps) {
   const [selectedAsset, setSelectedAsset] = useState<GeneratedAsset | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
 
   const handleImageLoad = (id: string) => {
     setLoadedImages((prev) => new Set(prev).add(id));
+  };
+
+  const handleRecreate = (asset: GeneratedAsset) => {
+    if (onRecreate) {
+      onRecreate({
+        prompt: asset.prompt,
+        negativePrompt: asset.negativePrompt,
+        model: asset.model,
+        aspectRatio: asset.aspect,
+        guidanceScale: asset.guidanceScale,
+      });
+    }
+    setSelectedAsset(null);
   };
 
   if (assets.length === 0) {
@@ -32,11 +47,13 @@ export function MasonryGrid({ assets }: MasonryGridProps) {
       <div className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-3">
         {assets.map((asset, index) => {
           const isLoaded = loadedImages.has(asset.id);
-          // Vary heights for visual interest in masonry
+          // Use actual aspect ratio for generated images, vary heights for seed images
           const heightVariants = ['aspect-square', 'aspect-[3/4]', 'aspect-[4/5]', 'aspect-square', 'aspect-[4/3]'];
           const heightClass = asset.source === 'seed'
             ? heightVariants[index % heightVariants.length]
-            : 'aspect-square';
+            : getAspectClass(asset.aspect);
+
+          const modelName = asset.source === 'seed' ? 'Sample' : getModelDisplayName(asset.model);
 
           return (
             <div
@@ -62,7 +79,7 @@ export function MasonryGrid({ assets }: MasonryGridProps) {
                 <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full">
                   <Sparkles className="w-3 h-3 text-emerald-400" />
                   <span className="text-[11px] font-medium text-white/90">
-                    {asset.source === 'seed' ? 'Sample' : 'FLUX Schnell'}
+                    {modelName}
                   </span>
                 </div>
 
@@ -74,11 +91,19 @@ export function MasonryGrid({ assets }: MasonryGridProps) {
 
                 {/* Hover overlay with recreate button */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  {/* Recreate button */}
-                  <button className="absolute bottom-14 left-3 flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg transition-colors">
-                    <RefreshCw className="w-3.5 h-3.5 text-white" />
-                    <span className="text-xs font-medium text-white">Recreate</span>
-                  </button>
+                  {/* Recreate button - only for non-seed assets */}
+                  {asset.source !== 'seed' && onRecreate && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRecreate(asset);
+                      }}
+                      className="absolute bottom-14 left-3 flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-lg transition-colors"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5 text-white" />
+                      <span className="text-xs font-medium text-white">Recreate</span>
+                    </button>
+                  )}
 
                   {/* Prompt text */}
                   <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -95,6 +120,7 @@ export function MasonryGrid({ assets }: MasonryGridProps) {
         <AssetModal
           asset={selectedAsset}
           onClose={() => setSelectedAsset(null)}
+          onRecreate={onRecreate ? () => handleRecreate(selectedAsset) : undefined}
         />
       )}
     </>

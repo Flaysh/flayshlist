@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { MasonryGrid, PromptDock } from '@/components/ai-toolkit';
-import type { GeneratedAsset } from '@/types/ai';
+import type { GeneratedAsset, RecreateSettings } from '@/types/ai';
 
 type AIToolkitClientProps = {
   initialAssets: GeneratedAsset[];
@@ -10,10 +10,22 @@ type AIToolkitClientProps = {
 
 export function AIToolkitClient({ initialAssets }: AIToolkitClientProps) {
   const [assets, setAssets] = useState<GeneratedAsset[]>(initialAssets);
+  const [settingsToRecreate, setSettingsToRecreate] = useState<RecreateSettings | null>(null);
 
   const handleGenerated = (newAsset: GeneratedAsset) => {
-    setAssets((prev) => [newAsset, ...prev.filter((a) => a.source !== 'seed')]);
+    // Add new asset at the beginning, keep all existing assets (including samples)
+    setAssets((prev) => [newAsset, ...prev]);
   };
+
+  const handleRecreate = useCallback((settings: RecreateSettings) => {
+    setSettingsToRecreate(settings);
+    // Scroll to bottom to show the dock
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }, []);
+
+  const handleSettingsCleared = useCallback(() => {
+    setSettingsToRecreate(null);
+  }, []);
 
   return (
     <div className="min-h-screen bg-neutral-950 relative">
@@ -24,11 +36,15 @@ export function AIToolkitClient({ initialAssets }: AIToolkitClientProps) {
       <div className="relative">
         {/* Gallery Grid */}
         <div className="px-3 pt-4 pb-52">
-          <MasonryGrid assets={assets} />
+          <MasonryGrid assets={assets} onRecreate={handleRecreate} />
         </div>
 
         {/* Prompt Dock */}
-        <PromptDock onGenerated={handleGenerated} />
+        <PromptDock
+          onGenerated={handleGenerated}
+          initialSettings={settingsToRecreate}
+          onSettingsCleared={handleSettingsCleared}
+        />
       </div>
     </div>
   );

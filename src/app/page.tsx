@@ -127,29 +127,66 @@ export default async function HomePage() {
       </section>
 
       {/* AI Toolkit Hero & Preview */}
-      <section className="py-16 bg-gradient-to-b from-neutral-950 via-blue-950/20 to-neutral-950 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10" />
+      <section className="py-20 bg-neutral-950 relative overflow-hidden">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-purple-500/5 to-blue-500/5" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
+
+        {/* Glow effects */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
         <div className="relative mx-auto max-w-7xl px-4">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-white/10 px-4 py-2 text-sm text-white/80 mb-4">
-              <Wand2 className="h-4 w-4 text-blue-400" />
-              <span className="font-semibold text-blue-400">NEW</span>
-              FLAYSH AI Toolkit
+          <div className="text-center mb-12">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/10 border border-amber-500/20 px-4 py-2 text-sm mb-6">
+              <div className="relative">
+                <Sparkles className="h-4 w-4 text-amber-400" />
+                <div className="absolute inset-0 bg-amber-400/50 rounded-full blur-sm animate-pulse" />
+              </div>
+              <span className="font-bold text-amber-400">NEW</span>
+              <span className="text-white/70">AI-Powered Creative Tools</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-100 mb-4">
-              Generate Stunning AI Images
+
+            {/* Main heading */}
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-100 mb-6 tracking-tight">
+              Create with{' '}
+              <span className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 bg-clip-text text-transparent">
+                AI Magic
+              </span>
             </h2>
-            <p className="text-lg text-neutral-400 max-w-2xl mx-auto mb-8">
-              Create beautiful, high-quality images with state-of-the-art AI.
-              Powered by FLUX Schnell. Free to use, no sign-up required.
+
+            <p className="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+              Generate stunning images in seconds. Multiple AI models, aspect ratios,
+              and advanced controls. <span className="text-amber-400 font-medium">Free to use</span>, no sign-up required.
             </p>
-            <Link href="/ai-toolkit">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-0">
-                <Wand2 className="h-5 w-5 mr-2" />
-                Open AI Toolkit
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-            </Link>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+              <Link href="/ai-toolkit">
+                <Button size="lg" className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-neutral-900 font-semibold border-0 shadow-lg shadow-amber-500/25 px-8">
+                  <Wand2 className="h-5 w-5 mr-2" />
+                  Start Creating Free
+                  <ArrowRight className="h-5 w-5 ml-2" />
+                </Button>
+              </Link>
+            </div>
+
+            {/* Feature pills */}
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-white/50">
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                FLUX Schnell & Pro
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                SDXL
+              </span>
+              <span className="flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                Multiple Aspect Ratios
+              </span>
+            </div>
           </div>
 
           {/* Preview Grid */}

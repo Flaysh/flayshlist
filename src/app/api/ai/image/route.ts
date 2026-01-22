@@ -3,15 +3,21 @@ import Replicate from 'replicate';
 import { put } from '@vercel/blob';
 import { checkRateLimit, getClientIP } from '@/lib/ratelimit';
 import { saveAsset } from '@/lib/gallery';
-import type { GeneratedAsset, GenerateImageResponse } from '@/types/ai';
-
-const MODEL_ID = 'black-forest-labs/flux-schnell';
+import { getModelById, calculateDimensions, DEFAULT_MODEL_ID, AI_MODELS } from '@/lib/ai-models';
+import type { GeneratedAsset, GenerateImageResponse, AspectRatio, Resolution } from '@/types/ai';
 
 export async function POST(request: NextRequest): Promise<NextResponse<GenerateImageResponse>> {
   try {
     // Parse request body
     const body = await request.json();
-    const { prompt } = body;
+    const {
+      prompt,
+      negativePrompt,
+      model: requestedModel,
+      aspectRatio = '1:1' as AspectRatio,
+      resolution = '1080p' as Resolution,
+      guidanceScale,
+    } = body;
 
     // Validate prompt
     if (!prompt || typeof prompt !== 'string') {
@@ -28,6 +34,20 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateI
         { status: 400 }
       );
     }
+
+    // Validate and get model configuration
+    const modelId = requestedModel || DEFAULT_MODEL_ID;
+    const modelConfig = getModelById(modelId);
+
+    if (!modelConfig) {
+      return NextResponse.json(
+        { success: false, error: `Invalid model: ${modelId}. Available models: ${AI_MODELS.map(m => m.name).join(', ')}` },
+        { status: 400 }
+      );
+    }
+
+    // Calculate dimensions based on aspect ratio and resolution
+    const dimensions = calculateDimensions(aspectRatio, resolution);
 
     // Check rate limit
     const clientIP = await getClientIP();
@@ -53,19 +73,24 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateI
       auth: process.env.REPLICATE_API_TOKEN,
     });
 
+    // Build model-specific input parameters
+    const replicateInput = buildReplicateInput(
+      modelId,
+      trimmedPrompt,
+      aspectRatio,
+      dimensions,
+      negativePrompt,
+      guidanceScale,
+      modelConfig
+    );
+
     // Generate image with Replicate
-    const output = await replicate.run(MODEL_ID, {
-      input: {
-        prompt: trimmedPrompt,
-        aspect_ratio: '1:1',
-        num_outputs: 1,
-        output_format: 'webp',
-        output_quality: 90,
-      },
+    const output = await replicate.run(modelId as `${string}/${string}`, {
+      input: replicateInput,
     });
 
     // Get the image URL from the output
-    const outputArray = output as string[];
+    const outputArray = Array.isArray(output) ? output : [output];
     if (!outputArray || outputArray.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Failed to generate image' },
@@ -73,7 +98,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateI
       );
     }
 
-    const replicateImageUrl = outputArray[0];
+    const replicateImageUrl = outputArray[0] as string;
 
     // Download the image
     const imageResponse = await fetch(replicateImageUrl);
@@ -100,13 +125,15 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateI
       id: assetId,
       kind: 'image',
       prompt: trimmedPrompt,
-      model: MODEL_ID,
-      aspect: '1:1',
-      width: 1024,
-      height: 1024,
+      negativePrompt: negativePrompt?.trim() || undefined,
+      model: modelId,
+      aspect: aspectRatio,
+      width: dimensions.width,
+      height: dimensions.height,
       imageUrl: blobResult.url,
       createdAt: new Date().toISOString(),
       source: 'replicate',
+      guidanceScale: modelConfig.supportsGuidanceScale ? (guidanceScale ?? modelConfig.defaultGuidanceScale) : undefined,
     };
 
     // Save to KV
@@ -120,4 +147,56 @@ export async function POST(request: NextRequest): Promise<NextResponse<GenerateI
       { status: 500 }
     );
   }
+}
+
+// Build Replicate input based on model-specific requirements
+function buildReplicateInput(
+  modelId: string,
+  prompt: string,
+  aspectRatio: AspectRatio,
+  dimensions: { width: number; height: number },
+  negativePrompt?: string,
+  guidanceScale?: number,
+  modelConfig?: ReturnType<typeof getModelById>
+): Record<string, unknown> {
+  // Base input common to most models
+  const baseInput: Record<string, unknown> = {
+    prompt,
+    num_outputs: 1,
+    output_format: 'webp',
+    output_quality: 90,
+  };
+
+  // FLUX models use aspect_ratio string
+  if (modelId.includes('flux')) {
+    return {
+      ...baseInput,
+      aspect_ratio: aspectRatio,
+      ...(modelConfig?.supportsGuidanceScale && guidanceScale !== undefined && {
+        guidance: guidanceScale,
+      }),
+    };
+  }
+
+  // Stable Diffusion 3 uses width/height and has different param names
+  if (modelId.includes('stable-diffusion')) {
+    return {
+      prompt,
+      width: dimensions.width,
+      height: dimensions.height,
+      output_format: 'webp',
+      ...(modelConfig?.supportsNegativePrompt && negativePrompt && {
+        negative_prompt: negativePrompt.trim(),
+      }),
+      ...(modelConfig?.supportsGuidanceScale && {
+        cfg_scale: guidanceScale ?? modelConfig.defaultGuidanceScale,
+      }),
+    };
+  }
+
+  // Default fallback
+  return {
+    ...baseInput,
+    aspect_ratio: aspectRatio,
+  };
 }

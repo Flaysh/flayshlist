@@ -1,15 +1,17 @@
 'use client';
 
 import { useEffect, useCallback, useState } from 'react';
-import { X, Image as ImageIcon, Clock, Sparkles, Square, Download, RefreshCw, Copy, Check, ExternalLink } from 'lucide-react';
+import { X, Image as ImageIcon, Clock, Sparkles, Square, Download, RefreshCw, Copy, Check, ExternalLink, SlidersHorizontal, Ban } from 'lucide-react';
 import type { GeneratedAsset } from '@/types/ai';
+import { getModelDisplayName } from '@/lib/ai-models';
 
 type AssetModalProps = {
   asset: GeneratedAsset;
   onClose: () => void;
+  onRecreate?: () => void;
 };
 
-export function AssetModal({ asset, onClose }: AssetModalProps) {
+export function AssetModal({ asset, onClose, onRecreate }: AssetModalProps) {
   const [copied, setCopied] = useState(false);
 
   const handleEscape = useCallback((e: KeyboardEvent) => {
@@ -33,7 +35,7 @@ export function AssetModal({ asset, onClose }: AssetModalProps) {
     minute: '2-digit',
   });
 
-  const modelName = asset.source === 'seed' ? 'Sample' : 'FLUX Schnell';
+  const modelName = asset.source === 'seed' ? 'Sample' : getModelDisplayName(asset.model);
 
   const handleCopyPrompt = async () => {
     await navigator.clipboard.writeText(asset.prompt);
@@ -134,11 +136,29 @@ export function AssetModal({ asset, onClose }: AssetModalProps) {
             </p>
           </div>
 
-          {/* Recreate button */}
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/80 transition-colors">
-            <RefreshCw className="w-4 h-4" />
-            Recreate
-          </button>
+          {/* Negative Prompt - only show if present */}
+          {asset.negativePrompt && (
+            <div>
+              <h3 className="text-sm font-medium text-white/50 flex items-center gap-2 mb-2">
+                <Ban className="w-4 h-4" />
+                Negative Prompt
+              </h3>
+              <p className="text-white/70 text-sm leading-relaxed bg-white/5 border border-white/10 rounded-xl p-3">
+                {asset.negativePrompt}
+              </p>
+            </div>
+          )}
+
+          {/* Recreate button - only for non-seed assets */}
+          {asset.source !== 'seed' && onRecreate && (
+            <button
+              onClick={onRecreate}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/80 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Recreate
+            </button>
+          )}
 
           {/* Metadata */}
           <div className="space-y-2">
@@ -165,6 +185,15 @@ export function AssetModal({ asset, onClose }: AssetModalProps) {
                 </span>
                 <span className="text-sm text-white/90">{asset.width}x{asset.height}</span>
               </div>
+              {asset.guidanceScale !== undefined && (
+                <div className="flex items-center justify-between py-2 border-b border-white/5">
+                  <span className="text-sm text-white/50 flex items-center gap-2">
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-amber-400" />
+                    Guidance
+                  </span>
+                  <span className="text-sm text-white/90">{asset.guidanceScale.toFixed(1)}</span>
+                </div>
+              )}
               <div className="flex items-center justify-between py-2">
                 <span className="text-sm text-white/50 flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5 text-orange-400" />

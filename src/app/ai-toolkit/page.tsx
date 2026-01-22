@@ -18,12 +18,9 @@ export default async function AIToolkitPage() {
   // Fetch assets from KV
   let assets = await getLatestAssets(60);
 
-  // If we have fewer than 12 assets, fill with seed images
-  if (assets.length < 12) {
-    const seedCount = 12 - assets.length;
-    const seedAssets = generateSeedAssets(seedCount);
-    assets = [...assets, ...seedAssets];
-  }
+  // Always add seed images at the end for a rich gallery experience
+  const seedAssets = generateSeedAssets(24);
+  assets = [...assets, ...seedAssets];
 
   return <AIToolkitClient initialAssets={assets} />;
 }
