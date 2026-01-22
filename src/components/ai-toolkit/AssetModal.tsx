@@ -20,10 +20,11 @@ export function AssetModal({ asset, onClose, onRecreate }: AssetModalProps) {
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscape);
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
     };
   }, [handleEscape]);
 
