@@ -5,6 +5,7 @@ import { NewBanner } from '@/components/site';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@/components/google-analytics';
+import { ClarityAnalytics } from '@/components/clarity-analytics';
 
 const siteUrl = 'https://artlist.flaysh.com';
 
@@ -112,6 +113,7 @@ export default function RootLayout({
           <Footer />
           <Analytics />
           <GoogleAnalytics />
+          <ClarityAnalytics />
         </Providers>
       </body>
     </html>
