@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useCallback, useState } from 'react';
-import { X, Image as ImageIcon, Clock, Sparkles, Square, Download, RefreshCw, Copy, Check, ExternalLink, SlidersHorizontal, Ban } from 'lucide-react';
+import { X, Image as ImageIcon, Clock, Sparkles, Square, Download, RefreshCw, Copy, Check, ExternalLink, SlidersHorizontal, Ban, Play } from 'lucide-react';
 import type { GeneratedAsset } from '@/types/ai';
 import { getModelDisplayName } from '@/lib/ai-models';
+import { AnimatePanel } from './AnimatePanel';
 
 type AssetModalProps = {
   asset: GeneratedAsset;
@@ -13,6 +14,7 @@ type AssetModalProps = {
 
 export function AssetModal({ asset, onClose, onRecreate }: AssetModalProps) {
   const [copied, setCopied] = useState(false);
+  const [showAnimatePanel, setShowAnimatePanel] = useState(false);
 
   const handleEscape = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
@@ -103,6 +105,13 @@ export function AssetModal({ asset, onClose, onRecreate }: AssetModalProps) {
             >
               <Download className="w-4 h-4" />
               Download
+            </button>
+            <button
+              onClick={() => setShowAnimatePanel(true)}
+              className="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors"
+              title="Animate image"
+            >
+              <Play className="w-4 h-4 text-white/70" />
             </button>
             <button
               onClick={() => window.open(asset.imageUrl, '_blank')}
@@ -206,6 +215,16 @@ export function AssetModal({ asset, onClose, onRecreate }: AssetModalProps) {
           </div>
         </div>
       </div>
+
+      {/* Animate Panel */}
+      {showAnimatePanel && (
+        <AnimatePanel
+          imageUrl={asset.imageUrl}
+          width={asset.width}
+          height={asset.height}
+          onClose={() => setShowAnimatePanel(false)}
+        />
+      )}
     </div>
   );
 }
