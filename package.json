@@ -12,6 +12,9 @@
     "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@remotion/bundler": "^4.0.409",
+    "@remotion/player": "^4.0.409",
+    "@remotion/renderer": "^4.0.409",
     "@upstash/ratelimit": "^2.0.5",
     "@vercel/analytics": "^1.6.1",
     "@vercel/blob": "^0.27.1",
@@ -21,6 +24,7 @@
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "remotion": "^4.0.409",
     "replicate": "^1.0.1",
     "tailwind-merge": "^3.4.0"
   },
