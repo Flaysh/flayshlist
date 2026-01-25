@@ -23,7 +23,7 @@ function formatBytes(bytes: number): string {
 
 export function PerformanceDashboardClient() {
   const [platform, setPlatform] = useState<Platform>('artlist')
-  const [device, setDevice] = useState<DeviceType>('mobile')
+  const [device, setDevice] = useState<DeviceType>('desktop') // Default to desktop - more representative
 
   const data = platformData[platform]
   const scores = data.scores[device]
@@ -165,7 +165,14 @@ export function PerformanceDashboardClient() {
           </div>
 
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-            <h3 className="text-sm font-medium text-white/70 mb-4">Core Web Vitals ({device})</h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-medium text-white/70">Core Web Vitals ({device})</h3>
+              {device === 'mobile' && (
+                <span className="text-[10px] text-white/40 bg-white/5 px-2 py-1 rounded">
+                  Simulated: 4x CPU throttle + slow 4G
+                </span>
+              )}
+            </div>
             <MetricDisplay vitals={vitals} />
           </div>
         </div>

@@ -16,6 +16,7 @@ const resourceColors: Record<string, string> = {
   Images: 'bg-emerald-500',
   HTML: 'bg-pink-500',
   'JSON/API': 'bg-cyan-500',
+  Media: 'bg-rose-500',
   Other: 'bg-neutral-500',
 }
 

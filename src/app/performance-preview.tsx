@@ -6,8 +6,9 @@ import { artlistAnalysis } from '@/data/performance-data'
 
 export function PerformancePreview() {
   const data = artlistAnalysis
-  const scores = data.scores.mobile
-  const vitals = data.vitals.mobile
+  // Use desktop metrics - more representative of typical user experience
+  const scores = data.scores.desktop
+  const vitals = data.vitals.desktop
   const jsSize = data.network.resourceBreakdown.find(r => r.type === 'JavaScript')?.size || 0
   const jsSizeMB = (jsSize / 1024 / 1024).toFixed(1)
 
