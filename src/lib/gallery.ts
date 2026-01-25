@@ -109,6 +109,8 @@ function getSeedDimensions(aspect: string): { width: number; height: number } {
 }
 
 export function generateSeedAssets(count: number): GeneratedAsset[] {
+  // Use a fixed base date to avoid hydration mismatches between server and client
+  const baseDate = new Date('2026-01-01T00:00:00.000Z');
   return Array.from({ length: count }, (_, i) => {
     const seed = SEED_IMAGES[i % SEED_IMAGES.length];
     const dims = getSeedDimensions(seed.aspect);
@@ -121,7 +123,7 @@ export function generateSeedAssets(count: number): GeneratedAsset[] {
       width: dims.width,
       height: dims.height,
       imageUrl: `https://picsum.photos/id/${seed.id}/${dims.width}/${dims.height}`,
-      createdAt: new Date(Date.now() - i * 60000).toISOString(),
+      createdAt: new Date(baseDate.getTime() - i * 60000).toISOString(),
       source: 'seed' as const,
     };
   });

@@ -17,6 +17,7 @@ import { Button, Card, CardContent } from '@/components/ui';
 import { cn } from '@/lib/design-system';
 import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist, artlistHighlights } from '@/data/content';
 import { getLatestAssets, generateSeedAssets } from '@/lib/gallery';
+import { getModelDisplayName } from '@/lib/ai-models';
 import { AIToolkitPreview } from './ai-toolkit-preview';
 
 const categories = [
@@ -45,12 +46,20 @@ const categories = [
 
 export default async function HomePage() {
   // Fetch assets for AI Toolkit preview
-  let previewAssets = await getLatestAssets(6);
-  if (previewAssets.length < 6) {
-    const seedCount = 6 - previewAssets.length;
+  let rawAssets = await getLatestAssets(6);
+  if (rawAssets.length < 6) {
+    const seedCount = 6 - rawAssets.length;
     const seedAssets = generateSeedAssets(seedCount);
-    previewAssets = [...previewAssets, ...seedAssets.slice(0, seedCount)];
+    rawAssets = [...rawAssets, ...seedAssets.slice(0, seedCount)];
   }
+
+  // Transform assets with pre-computed model names to avoid hydration mismatch
+  const previewAssets = rawAssets.map((asset) => ({
+    id: asset.id,
+    prompt: asset.prompt,
+    imageUrl: asset.imageUrl,
+    modelName: asset.source === 'seed' ? 'Sample' : getModelDisplayName(asset.model),
+  }));
 
   return (
     <div className="pb-24">

@@ -3,11 +3,16 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Image as ImageIcon, Sparkles, Play } from 'lucide-react';
-import type { GeneratedAsset } from '@/types/ai';
-import { getModelDisplayName } from '@/lib/ai-models';
+
+type PreviewAsset = {
+  id: string;
+  prompt: string;
+  imageUrl: string;
+  modelName: string;
+};
 
 type AIToolkitPreviewProps = {
-  assets: GeneratedAsset[];
+  assets: PreviewAsset[];
 };
 
 export function AIToolkitPreview({ assets }: AIToolkitPreviewProps) {
@@ -33,7 +38,6 @@ export function AIToolkitPreview({ assets }: AIToolkitPreviewProps) {
             'aspect-[3/4]',
           ];
           const heightClass = heights[index % heights.length];
-          const modelName = asset.source === 'seed' ? 'Sample' : getModelDisplayName(asset.model);
 
           return (
             <Link
@@ -58,7 +62,7 @@ export function AIToolkitPreview({ assets }: AIToolkitPreviewProps) {
               <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2 py-1 bg-black/70 backdrop-blur-md border border-white/10 rounded-full opacity-90 group-hover:opacity-100 transition-opacity">
                 <Sparkles className="w-3 h-3 text-emerald-400" />
                 <span className="text-[10px] font-medium text-white/90">
-                  {modelName}
+                  {asset.modelName}
                 </span>
               </div>
 
