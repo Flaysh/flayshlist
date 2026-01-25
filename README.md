@@ -5,8 +5,12 @@
 <h1 align="center">FlayshList</h1>
 
 <p align="center">
-  <strong>A production-grade portfolio featuring an AI Image Generation Toolkit</strong><br/>
-  <em>Built with Next.js 16, React 19, TypeScript 5, and Tailwind CSS 4</em>
+  <strong>Production-Grade Portfolio with AI Image Generation Toolkit</strong><br/>
+  <em>Built by a creator, for creators - showcasing senior-level frontend engineering</em>
+</p>
+
+<p align="center">
+  <a href="https://artlist.flaysh.com"><img src="https://img.shields.io/badge/Live_Demo-artlist.flaysh.com-0c8ce9?style=for-the-badge" alt="Live Demo" /></a>
 </p>
 
 <p align="center">
@@ -15,83 +19,95 @@
   <a href="#tech-stack"><img src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript" alt="TypeScript 5" /></a>
   <a href="#tech-stack"><img src="https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css" alt="Tailwind CSS 4" /></a>
   <a href="#testing"><img src="https://img.shields.io/badge/E2E-Playwright-45ba4b?logo=playwright" alt="Playwright" /></a>
+  <a href="#ai-toolkit"><img src="https://img.shields.io/badge/AI-Replicate-f59e0b" alt="Replicate AI" /></a>
 </p>
 
 ---
 
-## Overview
+## Why This Project
 
-FlayshList is a meticulously architected portfolio application demonstrating senior-level frontend engineering practices. The flagship feature is a **full-stack AI Image Generation Toolkit** that showcases production-ready patterns including API design, state management, rate limiting, and multi-service integration.
+I'm a **senior frontend engineer** who is also an **audiovisual artist** - I produce music (Neuro-Future DnB), perform as a DJ, and create visual art with TouchDesigner and Resolume. This dual perspective shapes how I approach creator tools.
 
-**Live Demo**: [artlist.flaysh.com](https://artlist.flaysh.com)
+**I build tools for creators because I am one.**
 
-### Key Engineering Highlights
-
-- **Full-Stack AI Toolkit** — Multi-model image generation with FLUX and Stable Diffusion 3
-- **Server-First Architecture** — React Server Components for optimal performance
-- **Type-Safe Throughout** — End-to-end TypeScript with discriminated unions
-- **Production Infrastructure** — Vercel KV, Blob storage, Upstash rate limiting
-- **Comprehensive Testing** — E2E tests with Playwright
-- **Automated CI/CD** — GitHub Actions pipeline with parallel jobs
+This portfolio demonstrates production-ready engineering patterns while showcasing my understanding of the audiovisual space - the same space Artlist operates in.
 
 ---
 
-## AI Toolkit
+## Live Demo
 
-The centerpiece feature: a production-grade AI image generation system inspired by [Artlist's toolkit](https://artlist.io).
+**[artlist.flaysh.com](https://artlist.flaysh.com)**
 
-### Features
+| Page | Description |
+|------|-------------|
+| [/ai-toolkit](https://artlist.flaysh.com/ai-toolkit) | Full-stack AI image generation system |
+| [/tools](https://artlist.flaysh.com/tools) | Technical deep-dive into the architecture |
+| [/performance](https://artlist.flaysh.com/performance) | Lighthouse analysis of artlist.io platform |
+| [/music](https://artlist.flaysh.com/music) | My music production portfolio |
+| [/reels](https://artlist.flaysh.com/reels) | My VJ/visual art portfolio |
 
-| Feature | Description |
-|---------|-------------|
-| **Multi-Model Support** | FLUX Schnell (fast), FLUX Pro (quality), SD3 (creative control) |
+---
+
+## AI Image Generation Toolkit
+
+The flagship feature: a **production-grade AI image generation system** inspired by Artlist's creative tools.
+
+### Capabilities
+
+| Feature | Implementation |
+|---------|---------------|
+| **Multi-Model Support** | FLUX Schnell (fast), FLUX Pro (quality), Stable Diffusion 3 (creative) |
 | **Aspect Ratios** | 1:1, 16:9, 9:16, 4:3, 3:4 with automatic dimension calculation |
-| **Resolution Options** | 720p and 1080p presets |
-| **Negative Prompts** | Specify what to avoid (SD3 only) |
-| **Guidance Scale** | Control prompt adherence with model-specific ranges |
-| **Recreate Flow** | Click any gallery image to regenerate with same settings |
-| **Rate Limiting** | Two-tier system (5/hour, 20/day) with development bypass |
+| **Resolution Options** | 720p (720 base) and 1080p (1024 base) presets |
+| **Advanced Settings** | Negative prompts (SD3), guidance scale (model-specific ranges) |
+| **Recreate Workflow** | Click any gallery image to regenerate with identical settings |
+| **Rate Limiting** | Two-tier sliding window (5/hour, 20/day) with dev bypass |
+| **Persistent Gallery** | Vercel KV storage with 60-image auto-cleanup |
 
 ### Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  UI Layer: PromptDock → ModelSelector, AspectRatioSelector, AdvancedSettings│
-├─────────────────────────────────────────────────────────────────────────────┤
-│  State: AIToolkitClient (assets[], settingsToRecreate, callbacks)           │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  API: /api/ai/image → Validation → Rate Limit → Replicate → Storage        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  Infrastructure: Replicate AI | Vercel Blob | Vercel KV | Upstash Ratelimit │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│  UI Layer                                                                        │
+│  PromptDock (352 lines) → ModelSelector, AspectRatioSelector, AdvancedSettings  │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  State Management                                                                │
+│  AIToolkitClient: assets[], settingsToRecreate, lifted callbacks                 │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  API Layer (/api/ai/image)                                                       │
+│  Request Validation → Rate Limit Check → Replicate API → Vercel Blob Storage    │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│  Infrastructure                                                                  │
+│  Replicate (AI) │ Vercel Blob (CDN) │ Vercel KV (Redis) │ Upstash (Rate Limit)  │
+└─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Technical Deep-Dive
+### Key Engineering Patterns
 
-For comprehensive documentation including data flow diagrams, type system design, and engineering decisions, see **[docs/AI_TOOLKIT.md](docs/AI_TOOLKIT.md)**.
+- **Discriminated Union Responses** - Type-safe success/error handling with compile-time exhaustiveness
+- **Model Capability Abstraction** - Extensible system via `supportsNegativePrompt`, `supportsGuidanceScale` flags
+- **Server/Client Boundary** - Server component fetches data, client manages state
+- **Progressive Fake Progress** - Mathematical easing for perceived performance
+- **Hydration-Safe Seeds** - Fixed timestamps prevent server/client mismatches
 
-Key engineering patterns demonstrated:
-- **Discriminated unions** for type-safe API responses
-- **Model capability abstraction** for extensible multi-model support
-- **Lifted state with callbacks** for predictable data flow
-- **Server/client component boundary** optimization
-- **Progressive fake progress** for perceived performance
+**Full documentation**: [docs/AI_TOOLKIT.md](docs/AI_TOOLKIT.md)
 
 ---
 
 ## Tech Stack
 
-| Category | Technologies |
-|----------|-------------|
-| **Framework** | Next.js 16 (App Router), React 19, TypeScript 5 |
-| **Styling** | Tailwind CSS 4, PostCSS, Custom Design System |
-| **AI/ML** | Replicate (FLUX, Stable Diffusion 3) |
-| **Storage** | Vercel Blob (images), Vercel KV (metadata) |
-| **Rate Limiting** | Upstash Ratelimit (sliding window) |
-| **Testing** | Playwright (E2E) |
-| **Quality** | ESLint 9, TypeScript Strict Mode |
-| **CI/CD** | GitHub Actions, Vercel |
-| **Package Manager** | pnpm 9 |
+| Category | Technologies | Details |
+|----------|-------------|---------|
+| **Frontend** | Next.js 16, React 19, TypeScript 5 | App Router, Server Components, Strict Mode |
+| **Styling** | Tailwind CSS 4, PostCSS | Custom design system with CSS variables |
+| **AI/ML** | Replicate | FLUX Schnell, FLUX Pro, Stable Diffusion 3 |
+| **Storage** | Vercel Blob, Vercel KV | CDN images, Redis-compatible metadata |
+| **Rate Limiting** | Upstash Ratelimit | Sliding window (hourly + daily tiers) |
+| **Analytics** | Vercel Analytics, Microsoft Clarity | Performance + behavior tracking |
+| **Testing** | Playwright | E2E tests with Chromium |
+| **Quality** | ESLint 9, TypeScript Strict | Automated linting + type checking |
+| **CI/CD** | GitHub Actions, Vercel | 3 parallel jobs, automatic deployment |
+| **Package Manager** | pnpm 9 | Fast, disk-efficient |
 
 ---
 
@@ -99,45 +115,41 @@ Key engineering patterns demonstrated:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Presentation Layer                          │
-│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌───────────┐ │
-│  │  Home   │ │  Music  │ │ Visuals │ │  About  │ │AI Toolkit │ │
-│  └─────────┘ └─────────┘ └─────────┘ └─────────┘ └───────────┘ │
+│                     PRESENTATION LAYER                           │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌────────┐ │
+│  │   Home   │ │  Music   │ │  Visuals │ │  About   │ │  AI    │ │
+│  │          │ │          │ │          │ │          │ │ Toolkit│ │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│                     Component Layer                             │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Design System: Button, Card, Badge, Input, Select       │  │
-│  │  Layout: Header (responsive nav), Footer, NewBanner      │  │
-│  │  AI Toolkit: PromptDock, MasonryGrid, ModelSelector...   │  │
-│  │  Embeds: Spotify, SoundCloud, Instagram                  │  │
-│  └──────────────────────────────────────────────────────────┘  │
+│                     COMPONENT LAYER                              │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  Design System: Button, Card, Badge, Input, Select         │ │
+│  │  Layout: Header (responsive), Footer, NewBanner            │ │
+│  │  AI Toolkit: PromptDock, MasonryGrid, AssetModal...        │ │
+│  │  Embeds: Spotify, SoundCloud, Instagram                    │ │
+│  └────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│                      API & Lib Layer                            │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  /api/ai/image: Generation endpoint with rate limiting   │  │
-│  │  lib/ai-models: Model configs, dimension calculations    │  │
-│  │  lib/gallery: KV operations, seed image generation       │  │
-│  │  lib/ratelimit: Two-tier rate limiting with IP detection │  │
-│  └──────────────────────────────────────────────────────────┘  │
+│                     API & BUSINESS LOGIC                         │
+│  ┌────────────────────────────────────────────────────────────┐ │
+│  │  /api/ai/image: Generation with validation + rate limiting │ │
+│  │  lib/ai-models: Model configs, dimension calculations      │ │
+│  │  lib/gallery: KV operations, seed generation, cleanup      │ │
+│  │  lib/ratelimit: IP-based two-tier sliding window           │ │
+│  └────────────────────────────────────────────────────────────┘ │
 ├─────────────────────────────────────────────────────────────────┤
-│                     Quality Gates                               │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐               │
-│  │   ESLint    │ │  TypeScript │ │   Testing   │               │
-│  │   + Rules   │ │   Strict    │ │     E2E     │               │
-│  └─────────────┘ └─────────────┘ └─────────────┘               │
+│                     INFRASTRUCTURE                               │
+│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐             │
+│  │   Replicate  │ │  Vercel Blob │ │  Vercel KV   │             │
+│  │   (AI APIs)  │ │  (CDN Store) │ │   (Redis)    │             │
+│  └──────────────┘ └──────────────┘ └──────────────┘             │
+├─────────────────────────────────────────────────────────────────┤
+│                     QUALITY GATES                                │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌────────────┐│
+│  │   ESLint    │ │  TypeScript │ │  Playwright │ │  GitHub    ││
+│  │   Rules     │ │   Strict    │ │     E2E     │ │  Actions   ││
+│  └─────────────┘ └─────────────┘ └─────────────┘ └────────────┘│
 └─────────────────────────────────────────────────────────────────┘
 ```
-
-### Design Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| **Discriminated union responses** | Type-safe error handling with compile-time exhaustiveness |
-| **Model capability flags** | Extensible system for adding new AI models |
-| **Server-side gallery fetch** | Fast first paint, SEO-friendly initial load |
-| **Sliding window rate limits** | Smooth rate limiting without abrupt cutoffs |
-| **Fake progress animation** | Improved perceived performance during generation |
-| **Seed images** | Rich gallery experience even with no generated content |
 
 ---
 
@@ -146,115 +158,73 @@ Key engineering patterns demonstrated:
 ```
 src/
 ├── app/
-│   ├── page.tsx                  # Homepage with AI Toolkit hero
-│   ├── ai-toolkit/               # AI Image Generation feature
-│   │   ├── page.tsx              # Server component (data fetch)
-│   │   └── client.tsx            # Client component (state)
+│   ├── page.tsx                    # Homepage with hero + AI preview
+│   ├── layout.tsx                  # Root layout + metadata + analytics
+│   ├── ai-toolkit/
+│   │   ├── page.tsx                # Server component (data fetch)
+│   │   └── client.tsx              # Client component (state)
 │   ├── api/
 │   │   └── ai/
-│   │       └── image/route.ts    # Generation API endpoint
-│   ├── music/page.tsx
-│   ├── reels/page.tsx
-│   ├── about/page.tsx
-│   ├── chat/
-│   ├── layout.tsx
-│   ├── error.tsx
-│   └── not-found.tsx
+│   │       └── image/route.ts      # Generation endpoint (203 lines)
+│   ├── performance/                # Artlist platform analysis
+│   ├── tools/                      # Technical showcase
+│   ├── music/, reels/, about/, chat/
+│   ├── error.tsx, not-found.tsx
+│   ├── robots.ts, sitemap.ts
+│   └── globals.css                 # Design system tokens + animations
 │
 ├── components/
-│   ├── ai-toolkit/               # AI Toolkit components
-│   │   ├── PromptDock.tsx        # Main input interface (280+ lines)
-│   │   ├── ModelSelector.tsx     # Model dropdown
-│   │   ├── AspectRatioSelector.tsx
-│   │   ├── AdvancedSettings.tsx  # Negative prompt, guidance
-│   │   ├── MasonryGrid.tsx       # Gallery with recreate
-│   │   ├── AssetModal.tsx        # Full-screen viewer
-│   │   └── index.ts              # Barrel export
-│   ├── ui/                       # Design system primitives
-│   ├── site/                     # Site-wide components
-│   │   └── NewBanner.tsx         # Dismissible announcement
-│   └── layout/
+│   ├── ai-toolkit/                 # 1000+ lines of AI feature code
+│   │   ├── PromptDock.tsx          # Main interface (352 lines)
+│   │   ├── MasonryGrid.tsx         # Gallery with lazy loading
+│   │   ├── AssetModal.tsx          # Full-screen viewer
+│   │   ├── ModelSelector.tsx       # Model dropdown
+│   │   ├── AspectRatioSelector.tsx # Aspect ratio options
+│   │   ├── AdvancedSettings.tsx    # Negative prompt, guidance
+│   │   └── index.ts
+│   ├── ui/                         # Design system primitives
+│   ├── layout/                     # Header, Footer
+│   ├── site/                       # NewBanner
+│   ├── performance/                # Performance dashboard components
+│   └── providers/
 │
 ├── lib/
-│   ├── ai-models.ts              # Model configs, dimension calc
-│   ├── gallery.ts                # KV operations, seeds
-│   ├── ratelimit.ts              # Two-tier rate limiting
+│   ├── ai-models.ts                # Model configs (109 lines)
+│   ├── gallery.ts                  # KV operations (131 lines)
+│   ├── ratelimit.ts                # Rate limiting (77 lines)
 │   └── design-system/
 │
 ├── types/
-│   └── ai.ts                     # Full AI toolkit type system
+│   └── ai.ts                       # Discriminated unions (62 lines)
 │
-└── hooks/
+└── data/
+    ├── content.ts                  # CV data, social links
+    └── performance-data.ts         # Lighthouse metrics
 
 docs/
-└── AI_TOOLKIT.md                 # Comprehensive feature documentation
+└── AI_TOOLKIT.md                   # Comprehensive documentation
 
 e2e/
-└── smoke.spec.ts
+└── smoke.spec.ts                   # Playwright E2E tests
+
+.github/workflows/
+└── ci.yml                          # 3 parallel CI jobs
 ```
 
 ---
 
-## Features
+## Engineering Decisions
 
-### AI Image Generation Toolkit
-
-Production-grade AI image generation with:
-- **Three AI models** with different speed/quality tradeoffs
-- **Five aspect ratios** with automatic dimension calculation
-- **Advanced settings** for power users (negative prompts, guidance)
-- **Persistent gallery** with auto-cleanup (60 image limit)
-- **Recreate workflow** for iterating on images
-
-### Server-First Rendering
-
-Uses React Server Components throughout, with `'use client'` directives only where interactivity is required. The AI Toolkit page fetches initial gallery data server-side for fast first paint.
-
-### Responsive Design System
-
-Custom component library built on Tailwind CSS 4:
-- **Primary**: Blues (`#0c8ce9`)
-- **Accent**: Amber (`#f59e0b`) - used for AI Toolkit CTA
-- **Neutral**: Dark-first palette
-
-### Third-Party Integrations
-
-- **Replicate** — AI image generation (FLUX, Stable Diffusion)
-- **Vercel Blob** — CDN-backed image storage
-- **Vercel KV** — Redis-compatible metadata storage
-- **Upstash** — Serverless rate limiting
-- **Spotify/SoundCloud** — Media embeds
-- **Instagram** — Dynamic embed injection
-
----
-
-## Testing
-
-### E2E Tests (Playwright)
-
-```bash
-pnpm e2e
-```
-
-14+ test cases covering:
-- Navigation flows across all pages
-- AI Toolkit rendering and interaction
-- Content rendering verification
-- Mobile responsive behavior
-- Accessibility compliance
-
----
-
-## CI/CD Pipeline
-
-GitHub Actions workflow with parallel jobs:
-
-```
-┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
-│ lint+typecheck  │  │      e2e        │  │      build      │
-│ (ESLint + TSC)  │  │  (Playwright)   │  │   (Next.js)     │
-└─────────────────┘  └─────────────────┘  └─────────────────┘
-```
+| Decision | Rationale |
+|----------|-----------|
+| **Discriminated union responses** | Compile-time exhaustiveness checking. TypeScript forces handling all cases. |
+| **Model capability flags** | Adding new AI models requires only adding config, not changing logic. |
+| **Server-side gallery fetch** | Fast first paint, SEO-friendly. Client hydrates for interactivity. |
+| **Sliding window rate limits** | Smooth limiting vs. abrupt cutoffs. Better UX for creators. |
+| **Fake progress animation** | Mathematical easing (slows as it approaches 90%). Perceived performance. |
+| **Seed images (24)** | Rich gallery experience even with zero generations. First-visit delight. |
+| **Two-tier rate limiting** | Burst protection (hourly) + quota (daily). Cost-conscious infrastructure. |
+| **Lifted state pattern** | Predictable data flow. Parent owns state, children get callbacks. |
 
 ---
 
@@ -262,9 +232,11 @@ GitHub Actions workflow with parallel jobs:
 
 ### Caching Strategy
 
-- Static assets: `max-age=31536000, immutable`
-- Generated images: Vercel Blob CDN with automatic optimization
-- Gallery metadata: Vercel KV with LRU-style cleanup
+| Resource | Cache Policy |
+|----------|--------------|
+| Static assets | `max-age=31536000, immutable` (1 year) |
+| Generated images | Vercel Blob CDN with WebP optimization |
+| Gallery metadata | Vercel KV with LRU-style auto-cleanup |
 
 ### Security Headers
 
@@ -278,10 +250,46 @@ Referrer-Policy: strict-origin-when-cross-origin
 
 ### Rate Limiting
 
-IP-based rate limiting protects the AI generation endpoint:
-- **Hourly**: 5 requests per hour (burst protection)
-- **Daily**: 20 requests per 24 hours (quota)
-- **Development**: Automatically bypassed for localhost
+IP-based sliding window protection:
+- **Hourly**: 5 requests/hour (burst protection)
+- **Daily**: 20 requests/24 hours (quota management)
+- **Development**: Auto-bypass for localhost/127.0.0.1/::1
+
+---
+
+## Testing
+
+### E2E Tests (Playwright)
+
+14+ test cases covering critical paths:
+
+```bash
+pnpm e2e        # Run headless
+pnpm e2e:ui     # Interactive UI mode
+```
+
+Coverage includes:
+- Navigation flows across all pages
+- AI Toolkit rendering and state
+- Content verification
+- Responsive behavior
+- Accessibility compliance
+
+---
+
+## CI/CD Pipeline
+
+GitHub Actions with 3 parallel jobs:
+
+```
+┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
+│  lint+typecheck   │  │       e2e         │  │       build       │
+│                   │  │                   │  │                   │
+│  • ESLint 9       │  │  • Build app      │  │  • Next.js build  │
+│  • TypeScript     │  │  • Playwright     │  │  • Verify output  │
+│    strict mode    │  │  • Upload report  │  │                   │
+└───────────────────┘  └───────────────────┘  └───────────────────┘
+```
 
 ---
 
@@ -295,56 +303,56 @@ IP-based rate limiting protects the AI generation endpoint:
 ### Installation
 
 ```bash
-# Clone the repository
+# Clone
 git clone https://github.com/itayflaysher/flayshlist.git
 cd flayshlist
 
-# Install dependencies
+# Install
 pnpm install
 
-# Set up environment variables
+# Environment
 cp .env.example .env.local
-# Add your API keys (Replicate, Vercel KV, Vercel Blob)
+# Add your API keys
 
-# Start development server
+# Develop
 pnpm dev
 ```
 
 ### Environment Variables
 
 ```bash
-# AI Generation (Replicate)
+# Replicate (AI Generation)
 REPLICATE_API_TOKEN=r8_xxx
 
-# Storage (Vercel KV)
+# Vercel KV (Gallery Metadata)
 KV_URL=xxx
 KV_REST_API_URL=xxx
 KV_REST_API_TOKEN=xxx
 KV_REST_API_READ_ONLY_TOKEN=xxx
 
-# Image Storage (Vercel Blob)
+# Vercel Blob (Image Storage)
 BLOB_READ_WRITE_TOKEN=xxx
 ```
 
-### Available Scripts
+### Scripts
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start development server (rate limits bypassed) |
+| `pnpm dev` | Development server (rate limits bypassed) |
 | `pnpm build` | Production build |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm typecheck` | Run TypeScript compiler |
-| `pnpm e2e` | Run E2E tests |
+| `pnpm start` | Production server |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | TypeScript compiler |
+| `pnpm e2e` | Playwright E2E tests |
 
 ---
 
 ## Documentation
 
-- **[AI Toolkit Deep-Dive](docs/AI_TOOLKIT.md)** — Comprehensive technical documentation
-  - Architecture diagrams and data flow
+- **[docs/AI_TOOLKIT.md](docs/AI_TOOLKIT.md)** - Comprehensive AI toolkit documentation
+  - Architecture diagrams
   - Type system design
-  - API layer implementation
+  - API implementation details
   - State management patterns
   - Storage and rate limiting
   - Key engineering decisions
@@ -353,13 +361,29 @@ BLOB_READ_WRITE_TOKEN=xxx
 
 ## Engineering Philosophy
 
-This project demonstrates several senior frontend engineering principles:
+This project demonstrates senior frontend engineering principles:
 
-1. **Type Safety as Documentation** — Types serve as living API contracts
-2. **Composition Over Configuration** — Small, focused components compose into features
-3. **Server-First by Default** — Client code only where interactivity requires it
-4. **Progressive Enhancement** — Core functionality works, JS enhances
-5. **Production Mindset** — Rate limiting, error handling, cleanup from day one
+1. **Type Safety as Documentation** - Types are living API contracts, not afterthoughts
+2. **Composition Over Configuration** - Small, focused components compose into features
+3. **Server-First by Default** - `'use client'` only where interactivity requires it
+4. **Progressive Enhancement** - Core works, JavaScript enhances
+5. **Production Mindset** - Rate limiting, error handling, cleanup from day one
+6. **Creator Empathy** - I build tools for creators because I understand their needs
+
+---
+
+## About the Developer
+
+**Itay Flaysher (FLAYSH)**
+
+Senior Frontend Engineer with 6+ years of experience. Also an audiovisual artist:
+- Music Producer (Neuro-Future DnB)
+- DJ (Desert Bass Festival)
+- VJ/Visual Artist (TouchDesigner, Resolume, projection mapping)
+
+This dual perspective - engineer and creator - informs everything I build.
+
+**[LinkedIn](https://linkedin.com/in/itayflaysher)** | **[GitHub](https://github.com/itayflaysher)**
 
 ---
 
@@ -370,5 +394,5 @@ MIT
 ---
 
 <p align="center">
-  <em>Built with care by <a href="https://github.com/itayflaysher">Itay Flaysher</a></em>
+  <em>Built with ruthless simplicity by <a href="https://github.com/itayflaysher">Itay Flaysher</a></em>
 </p>
