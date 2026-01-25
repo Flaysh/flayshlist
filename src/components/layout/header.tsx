@@ -10,7 +10,7 @@ import { socialLinks } from '@/data/content';
 
 const mainLinks = [
   { href: '/ai-toolkit', label: 'AI Toolkit', icon: Wand2, isNew: true },
-  { href: '/performance', label: 'Performance', icon: Activity, isNewer: true },
+  { href: '/performance', label: 'Performance', icon: Activity},
   { href: '/about', label: 'About Me', icon: Sparkles },
   { href: '/reels', label: 'Visuals', icon: Monitor },
   { href: '/music', label: 'Music', icon: Music },
@@ -60,11 +60,6 @@ export const Header = () => {
               >
                 <link.icon className="h-4 w-4" />
                 {link.label}
-                {'isNewer' in link && link.isNewer && (
-                  <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full">
-                    NEWER
-                  </span>
-                )}
                 {'isNew' in link && link.isNew && !('isNewer' in link && link.isNewer) && (
                   <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full">
                     NEW
@@ -136,11 +131,6 @@ export const Header = () => {
                   >
                     <Icon className="h-4 w-4" />
                     {link.label}
-                    {'isNewer' in link && link.isNewer && (
-                      <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full">
-                        NEWER
-                      </span>
-                    )}
                     {'isNew' in link && link.isNew && !('isNewer' in link && link.isNewer) && (
                       <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full">
                         NEW
