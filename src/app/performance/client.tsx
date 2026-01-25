@@ -121,7 +121,7 @@ export function PerformanceDashboardClient() {
             <ul className="space-y-2 text-sm text-white/70">
               <li className="flex items-start gap-2">
                 <span className="text-red-400 mt-0.5">•</span>
-                <span><strong className="text-white">Mobile users wait {vitals.interactive}</strong> before the page becomes interactive - users on slower connections likely abandon</span>
+                <span><strong className="text-white">{device === 'desktop' ? 'Desktop' : 'Mobile'} users wait {vitals.interactive}</strong> before the page becomes interactive - users on slower connections likely abandon</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-400 mt-0.5">•</span>
@@ -267,7 +267,7 @@ export function PerformanceDashboardClient() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:itay@flaysh.io"
+              href="mailto:itayf3x@gmail.com"
               className={cn(
                 'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl',
                 'bg-primary-500 hover:bg-primary-600 text-white font-medium',

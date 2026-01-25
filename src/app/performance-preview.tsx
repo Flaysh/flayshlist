@@ -78,7 +78,7 @@ export function PerformancePreview() {
           <div className="space-y-2 mb-6">
             <div className="flex items-center gap-2 text-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-              <span className="text-white/70">Mobile users wait <strong className="text-white">{vitals.interactive}</strong> for interactivity</span>
+              <span className="text-white/70">Desktop users wait <strong className="text-white">{vitals.interactive}</strong> for interactivity</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />

@@ -30,7 +30,7 @@ export const socialLinks = {
 };
 
 export const contactInfo = {
-  phone: '+972 59-791-40',
+  phone: '+972-52-597-9140',
   email: 'itayf3x@gmail.com',
   location: 'Tel Aviv, Israel',
 };
