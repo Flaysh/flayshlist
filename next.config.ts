@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   // Performance optimizations
   reactStrictMode: true,
 
+  // Server-side packages that should not be bundled
+  serverExternalPackages: [
+    '@remotion/bundler',
+    '@remotion/renderer',
+    'esbuild',
+  ],
+
   // Image optimization
   images: {
     formats: ['image/webp'],
