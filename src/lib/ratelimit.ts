@@ -15,6 +15,19 @@ const dailyLimiter = new Ratelimit({
   prefix: 'ratelimit:daily',
 });
 
+// Animation rendering rate limiters (more restrictive - CPU heavy)
+const animationHourlyLimiter = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(3, '1 h'),
+  prefix: 'ratelimit:animation:hourly',
+});
+
+const animationDailyLimiter = new Ratelimit({
+  redis: kv,
+  limiter: Ratelimit.slidingWindow(10, '24 h'),
+  prefix: 'ratelimit:animation:daily',
+});
+
 export async function getClientIP(): Promise<string> {
   const headersList = await headers();
   const forwardedFor = headersList.get('x-forwarded-for');
@@ -60,6 +73,46 @@ export async function checkRateLimit(identifier: string): Promise<RateLimitResul
 
   // Check daily limit
   const dailyResult = await dailyLimiter.limit(identifier);
+  if (!dailyResult.success) {
+    const retryAfter = Math.ceil((dailyResult.reset - Date.now()) / 1000);
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfter,
+      reason: 'daily',
+    };
+  }
+
+  return {
+    allowed: true,
+    remaining: Math.min(hourlyResult.remaining, dailyResult.remaining),
+  };
+}
+
+export async function checkAnimationRateLimit(identifier: string): Promise<RateLimitResult> {
+  // Skip rate limiting for localhost/development
+  const isLocalhost = identifier === '127.0.0.1' || identifier === '::1' || identifier === 'localhost' || identifier === 'anonymous';
+  if (isLocalhost && process.env.NODE_ENV === 'development') {
+    return {
+      allowed: true,
+      remaining: 999,
+    };
+  }
+
+  // Check hourly limit first
+  const hourlyResult = await animationHourlyLimiter.limit(identifier);
+  if (!hourlyResult.success) {
+    const retryAfter = Math.ceil((hourlyResult.reset - Date.now()) / 1000);
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfter,
+      reason: 'hourly',
+    };
+  }
+
+  // Check daily limit
+  const dailyResult = await animationDailyLimiter.limit(identifier);
   if (!dailyResult.success) {
     const retryAfter = Math.ceil((dailyResult.reset - Date.now()) / 1000);
     return {
