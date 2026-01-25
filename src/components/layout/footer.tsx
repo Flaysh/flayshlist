@@ -3,10 +3,13 @@ import Image from 'next/image';
 import { Github, Linkedin, Instagram, Music } from 'lucide-react';
 import { socialLinks } from '@/data/content';
 
+
 const navLinks = [
+  { href: '/ai-toolkit', label: 'AI Toolkit' },
+  { href: '/performance', label: 'Performance' },
+  { href: '/about', label: 'About Me' },
   { href: '/reels', label: 'Visuals' },
   { href: '/music', label: 'Music' },
-  { href: '/about', label: 'About Me' },
   { href: '/chat', label: 'Ask AI' },
   { href: '/tools', label: 'How I Built This' },
 ];
