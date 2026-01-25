@@ -45,3 +45,6 @@ playwright-report/
 test-results/
 
 INTERVIEW_PREP.md
+
+# worktrees
+.worktrees/
