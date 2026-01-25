@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin, Wand2 } from 'lucide-react';
+import { Menu, X, Music, Monitor, Sparkles, Wrench, Bot, Github, Linkedin, Wand2, Activity } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { socialLinks } from '@/data/content';
 
@@ -12,6 +12,7 @@ const mainLinks = [
   { href: '/music', label: 'Music', icon: Music },
   { href: '/reels', label: 'Visuals', icon: Monitor },
   { href: '/ai-toolkit', label: 'AI Toolkit', icon: Wand2, isNew: true },
+  { href: '/performance', label: 'Performance', icon: Activity },
   { href: '/about', label: 'About Me', icon: Sparkles },
   { href: '/chat', label: 'Ask AI', icon: Bot },
   { href: '/tools', label: 'How I Built This', icon: Wrench },
