@@ -19,6 +19,7 @@ import { socialLinks, cvData, soundcloudContent, spotifyEmbed, audiovisualArtist
 import { getLatestAssets, generateSeedAssets } from '@/lib/gallery';
 import { getModelDisplayName } from '@/lib/ai-models';
 import { AIToolkitPreview } from './ai-toolkit-preview';
+import { PerformancePreview } from './performance-preview';
 
 const categories = [
   {
@@ -200,6 +201,30 @@ export default async function HomePage() {
 
           {/* Preview Grid */}
           <AIToolkitPreview assets={previewAssets} />
+        </div>
+      </section>
+
+      {/* Performance Analysis Section */}
+      <section className="py-20 bg-gradient-to-b from-neutral-950 via-red-950/5 to-neutral-950">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/20 px-4 py-2 text-sm mb-6">
+              <span className="font-medium text-red-400">Deep Dive Analysis</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-100 mb-4">
+              I Audited{' '}
+              <span className="text-red-400">Artlist&apos;s</span>{' '}
+              Performance
+            </h2>
+
+            <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+              Using Lighthouse, Chrome DevTools, and HAR analysis to identify
+              bottlenecks and optimization opportunities on artlist.io
+            </p>
+          </div>
+
+          <PerformancePreview />
         </div>
       </section>
 
