@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ExternalLink, Instagram } from 'lucide-react';
 import { Button, Card, CardContent, Badge } from '@/components/ui';
 import { visualContent, audiovisualArtist, socialLinks } from '@/data/content';
+import { TrackedLink } from '@/components/tracked-link';
 
 export function VisualsContent() {
   useEffect(() => {
@@ -43,17 +44,16 @@ export function VisualsContent() {
         <p className="mt-4 text-lg text-neutral-400 max-w-2xl mx-auto leading-relaxed">
           {audiovisualArtist.bio}
         </p>
-        <a
+        <TrackedLink
           href={socialLinks.instagram.url}
-          target="_blank"
-          rel="noopener noreferrer"
+          context="reels_header"
           className="mt-6 inline-block"
         >
           <Button>
             <Instagram className="h-4 w-4 mr-2" />
             Follow @{visualContent.username}
           </Button>
-        </a>
+        </TrackedLink>
       </div>
 
       <div className="mb-10">
@@ -128,17 +128,16 @@ export function VisualsContent() {
             <p className="mt-1 text-sm text-neutral-400">
               Follow for more audiovisual content.
             </p>
-            <a
+            <TrackedLink
               href={socialLinks.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              context="reels_cta"
               className="mt-4 inline-block"
             >
               <Button variant="outline" size="sm">
                 Visit Profile
                 <ExternalLink className="ml-2 h-3 w-3" />
               </Button>
-            </a>
+            </TrackedLink>
           </CardContent>
         </Card>
       </div>

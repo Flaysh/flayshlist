@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Send, User, Copy, Check, RefreshCw, Trash2, Bot } from 'lucide-react';
 import { cn, focusRing } from '@/lib/design-system';
 import { Button, Card } from '@/components/ui';
+import { usePostHog } from '@/hooks/use-posthog';
 
 interface Message {
   id: string;
@@ -117,6 +118,18 @@ export const AiChat = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(1);
+  const sessionStartedRef = useRef(false);
+  const { capture } = usePostHog();
+
+  // Track chat session start once
+  useEffect(() => {
+    if (!sessionStartedRef.current) {
+      capture('chat_session_started', {
+        entry_point: 'chat_page',
+      });
+      sessionStartedRef.current = true;
+    }
+  }, [capture]);
 
   // Scroll to bottom of messages container
   useEffect(() => {
@@ -153,6 +166,12 @@ export const AiChat = () => {
   const handleSend = async (text?: string) => {
     const messageText = text || input.trim();
     if (!messageText || isTyping) return;
+
+    // Track chat message sent
+    capture('chat_message_sent', {
+      message_length: messageText.length,
+      is_suggested: !!text, // true if using suggested question
+    });
 
     const userMessage: Message = {
       id: nextId(),
