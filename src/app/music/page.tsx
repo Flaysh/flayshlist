@@ -1,13 +1,10 @@
+'use client';
+
 import Image from 'next/image';
 import { ExternalLink, Music } from 'lucide-react';
 import { Button, Card, CardContent } from '@/components/ui';
 import { soundcloudContent, spotifyEmbed, socialLinks } from '@/data/content';
-
-export const metadata = {
-  title: 'Music',
-  description:
-    'Original electronic music productions by FLAYSH. Neuro-future DnB, desert bass, and experimental sounds.',
-};
+import { TrackedLink } from '@/components/tracked-link';
 
 export default function MusicPage() {
   return (
@@ -27,18 +24,18 @@ export default function MusicPage() {
           Stream on your favorite platform.
         </p>
         <div className="mt-6 flex items-center justify-center gap-4">
-          <a href={socialLinks.soundcloud.url} target="_blank" rel="noopener noreferrer">
+          <TrackedLink href={socialLinks.soundcloud.url} context="music_header">
             <Button>
               <Music className="h-4 w-4 mr-2" />
               SoundCloud
             </Button>
-          </a>
-          <a href={spotifyEmbed.artistUrl} target="_blank" rel="noopener noreferrer">
+          </TrackedLink>
+          <TrackedLink href={spotifyEmbed.artistUrl} context="music_header">
             <Button variant="outline">
               Spotify
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
-          </a>
+          </TrackedLink>
         </div>
       </div>
 
@@ -118,17 +115,16 @@ export default function MusicPage() {
             <p className="mt-2 text-neutral-400">
               Follow for new releases, DJ sets, and exclusive content.
             </p>
-            <a
+            <TrackedLink
               href={socialLinks.soundcloud.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              context="music_cta"
               className="mt-6 inline-block"
             >
               <Button>
                 Follow on SoundCloud
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Button>
-            </a>
+            </TrackedLink>
           </CardContent>
         </Card>
       </section>

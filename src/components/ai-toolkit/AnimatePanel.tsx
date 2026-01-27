@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { X, Download, Loader2 } from 'lucide-react';
 import { AnimationPreview } from './AnimationPreview';
 import { ANIMATION_PRESETS, type AnimationPreset } from '@/types/animation';
+import { usePostHog } from '@/hooks/use-posthog';
 
 type AnimatePanelProps = {
   imageUrl: string;
@@ -16,10 +17,20 @@ export function AnimatePanel({ imageUrl, width, height, onClose }: AnimatePanelP
   const [preset, setPreset] = useState<AnimationPreset>('ken-burns');
   const [isRendering, setIsRendering] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { capture } = usePostHog();
 
   const handleDownload = async () => {
     setIsRendering(true);
     setError(null);
+
+    // Track video export initiation
+    capture('video_export_initiated', {
+      preset,
+      format: 'mp4',
+      width,
+      height,
+      resolution: `${width}x${height}`,
+    });
 
     try {
       const response = await fetch('/api/ai/animate', {
@@ -48,6 +59,17 @@ export function AnimatePanel({ imageUrl, width, height, onClose }: AnimatePanelP
     } finally {
       setIsRendering(false);
     }
+  };
+
+  const handlePresetChange = (newPreset: AnimationPreset) => {
+    setPreset(newPreset);
+
+    // Track animation preview selection
+    capture('animation_preview_played', {
+      animation_type: newPreset,
+      width,
+      height,
+    });
   };
 
   return (
@@ -85,7 +107,7 @@ export function AnimatePanel({ imageUrl, width, height, onClose }: AnimatePanelP
             {ANIMATION_PRESETS.map((p) => (
               <button
                 key={p.id}
-                onClick={() => setPreset(p.id)}
+                onClick={() => handlePresetChange(p.id)}
                 className={`px-3 py-1.5 text-sm rounded-lg border transition-colors ${
                   preset === p.id
                     ? 'bg-amber-500 border-amber-500 text-neutral-900 font-medium'

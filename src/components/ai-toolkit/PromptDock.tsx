@@ -14,6 +14,7 @@ import { ModelSelector } from './ModelSelector';
 import { AspectRatioSelector } from './AspectRatioSelector';
 import { AdvancedSettings } from './AdvancedSettings';
 import { DEFAULT_MODEL_ID, getModelById, calculateDimensions, RESOLUTIONS } from '@/lib/ai-models';
+import { usePostHog } from '@/hooks/use-posthog';
 
 type PromptDockProps = {
   onGenerated: (asset: GeneratedAsset) => void;
@@ -34,6 +35,8 @@ export function PromptDock({ onGenerated, initialSettings, onSettingsCleared }: 
   const [isExpanded, setIsExpanded] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const generationStartTimeRef = useRef<number>(0);
+  const { capture } = usePostHog();
 
   // Apply initial settings when provided (for recreate functionality)
   // This is intentional prop synchronization - the parent passes settings to apply
@@ -132,6 +135,7 @@ export function PromptDock({ onGenerated, initialSettings, onSettingsCleared }: 
     setError(null);
     setIsGenerating(true);
     startFakeProgress();
+    generationStartTimeRef.current = Date.now();
 
     try {
       const modelConfig = getModelById(model);
@@ -152,15 +156,42 @@ export function PromptDock({ onGenerated, initialSettings, onSettingsCleared }: 
       const data: GenerateImageResponse = await response.json();
 
       if (data.success) {
+        const duration_ms = Date.now() - generationStartTimeRef.current;
+
+        // Track successful generation
+        capture('image_generated', {
+          model,
+          aspectRatio,
+          resolution,
+          prompt_length: trimmedPrompt.length,
+          has_negative_prompt: !!negativePrompt.trim(),
+          guidance_scale: modelConfig?.supportsGuidanceScale ? guidanceScale : undefined,
+          duration_ms,
+        });
+
         stopFakeProgress(true);
         setPrompt('');
         setNegativePrompt('');
         onGenerated(data.asset);
       } else {
+        // Track generation failure with error message
+        capture('generation_failed', {
+          model,
+          error_type: 'api_error',
+          error_message: data.error,
+        });
+
         stopFakeProgress(false);
         setError(data.error);
       }
-    } catch {
+    } catch (err) {
+      // Track generation failure with network error
+      capture('generation_failed', {
+        model,
+        error_type: 'network_error',
+        error_message: err instanceof Error ? err.message : 'Unknown error',
+      });
+
       stopFakeProgress(false);
       setError('Failed to generate image. Please try again.');
     }
